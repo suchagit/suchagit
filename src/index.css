@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --olive: #979f8a;
+  --peach: #ddb8a6;
+  --apricot: #d49b7e;
+  --copper: #c68044;
+  --brown: #8b3f05;
+}
+
+/*body {
+  @apply bg-olive text-brown font-sans;
+}
+h1, h2, h3 {
+  @apply font-bold text-brown;
+}*/
+body {
+  @apply bg-olive text-darkbrown font-sans;
+}
+h1, h2, h3 {
+  @apply font-heading;
+}
+
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+.animate-fadeIn {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+input[type="file"]::file-selector-button {
+  @apply px-4 py-2 bg-copper text-white rounded cursor-pointer hover:bg-darkbrown transition;
+  padding: 0.25rem 0.5rem;    /* smaller vertical/horizontal padding */
+  font-size: 0.875rem;     
+}
+
+@layer components {
+  /* Base button styling */
+  .btn {
+    @apply px-4 py-2 rounded transition transform shadow-md;
+  }
+
+  /* Hover scaling and shadow */
+  .btn:hover {
+    @apply scale-105 shadow-lg;
+  }
+
+  /* Color variants */
+  .btn-copper {
+    @apply bg-copper text-white hover:bg-darkbrown;
+  }
+  .btn-peach {
+    @apply bg-peach text-white hover:bg-darkbrown;
+  }
+  .btn-lightbrown {
+    @apply bg-lightbrown text-white hover:bg-copper;
+  }
+
+  /* Disabled style */
+  .btn-disabled {
+    @apply bg-copper cursor-not-allowed opacity-70;
+  }
+
+  /* Full width variant (for reservation buttons, etc.) */
+  .btn-full {
+    @apply w-full mt-auto;
+  }
+}
