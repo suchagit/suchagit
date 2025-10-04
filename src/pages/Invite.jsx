@@ -194,7 +194,7 @@ return (
         {/* Invite heading */}
         <h2 className="text-4xl font-heading mb-4">Dear {invite.name}</h2>
         <div className="text-white px-4">
-          <h1 className="text-4xl md:text-6xl font-heading mb-2">BBB & RRRR</h1>
+          <h1 className="text-4xl md:text-6xl font-heading mb-2">Boyd & Rejoice</h1>
         </div>
         <h2 className="text-lg mb-6 text-darkbrown font-body text-white mx-auto max-w-[16rem]">
           invite you to join them as they celebrate their wedding
@@ -210,10 +210,10 @@ return (
         <div className="mb-4 text-darkbrown font-body w-full">
           <div className="w-full bg-lightbrown p-4 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 bg-opacity-60">
             <p className="text-lg mb-2">
-              <span className="font-semibold">Date & Time:</span> 1st November 2025 at 10:30AM
+              <span className="font-semibold">Date & Time:</span> Nth November 2025 at 10:30AM
             </p>
             <p className="text-lg mb-2">
-              <span className="font-semibold">Address:</span> Somewhere or other
+              <span className="font-semibold">Address:</span> Somewhere or Other
             </p>
             {invite.reception && (
               <p className="text-lg mb-2">
