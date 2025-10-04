@@ -23,26 +23,25 @@ export default function RegistryItemCard({ item }) {
       setReserved(true);
       alert(`You reserved: ${item.name}`);
     }
-
     setSaving(false);
   };
 
   return (
     <div
-        className={`border rounded-lg p-6 shadow-lg transform transition hover:scale-105 hover:shadow-xl ${
-            reserved ? "opacity-40 line-through" : "bg-sand"
-        }`}
-        >
-        <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
-        <p className="mb-2">{item.description}</p>
-        <a
-            href={item.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-copper underline hover:text-brown"
-        >
-            View Item
-        </a>
+      className={`border rounded-lg p-6 shadow-lg transform transition hover:scale-105 hover:shadow-xl ${
+          reserved ? "opacity-40 line-through" : "bg-sand"
+      }`}
+    >
+      <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
+      <p className="mb-2">{item.description}</p>
+      <a
+          href={item.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-copper underline hover:text-brown"
+      >
+        View Item
+      </a>
 
       <button
         onClick={handleReserve}

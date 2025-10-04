@@ -1,97 +1,3 @@
-{/*
-  import { useEffect, useState } from "react";
-import { supabase } from "../supabaseClient";
-import PhotoUpload from "../components/PhotoUpload";
-
-export default function Gallery() {
-  const [photos, setPhotos] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const inviteId = localStorage.getItem("inviteId");
-
-  const [showAddPhotos, setShowAddPhotos] = useState(false);
-
-  useEffect(() => {
-    const fetchPhotos = async () => {
-      const { data, error } = await supabase.storage
-        .from("uploads")
-        .list("", { limit: 100, offset: 0, sortBy: { column: "name", order: "asc" } });
-
-      if (error) console.error(error);
-      else {
-        console.log("PHOTO DATA: ", data);
-        // Get public URLs for each photo
-        //const urls = data.map((file) =>
-        //  supabase.storage.from("uploads").getPublicUrl(file.name).data.publicUrl
-        //);
-        const urls = await Promise.all(
-  data.map((file) =>
-    supabase.storage
-      .from("uploads")
-      .createSignedUrl(file.name, 60) // URL valid for 60 seconds
-      .then(res => res.data.signedUrl)
-  )
-);
-        setPhotos(urls);
-      }
-      setLoading(false);
-    };
-
-    fetchPhotos();
-  }, []);
-
-  if (loading) return <p className="p-8 text-center">Loading gallery…</p>;
-
-  return (
-    <div className="min-h-screen bg-[#979f8a] p-6 text-white relative">
-
-  <div className="relative mb-6 text-center">
-    <h1 className="text-4xl font-bold inline-block">
-      Photo Gallery
-    </h1>
-
-    <button
-      onClick={() => setShowAddPhotos(true)}
-      className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/20 text-white px-3 py-1 rounded hover:bg-white/40 transition text-base"
-    >
-      Please upload your photos from the wedding!!
-    </button>
-  </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {photos.length === 0 && <p>No photos uploaded yet.</p>}
-        {photos.map((url, idx) => (
-          <div key={idx} className="overflow-hidden rounded-lg shadow-md">
-            <img
-                src={url}
-                alt={`Wedding Photo ${idx + 1}`}
-                className="w-full h-64 object-cover rounded-lg shadow-md
-                transform transition hover:scale-105 hover:shadow-xl"
-/>
-
-          </div>
-        ))}
-      </div>
-
-      {showAddPhotos && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded shadow-lg relative w-full max-w-md">
-            <button
-              onClick={() => setShowAddPhotos(false)}
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
-            >
-              ✕
-            </button>
-            <PhotoUpload />
-          </div>
-        </div>
-      )}
-
-    </div>
-  );
-}
-*/}
-
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import PhotoUpload from "../components/PhotoUpload";
@@ -127,7 +33,6 @@ export default function Gallery() {
       }
       setLoading(false);
     };
-
     fetchPhotos();
   }, []);
 
@@ -187,15 +92,15 @@ export default function Gallery() {
   return (
     <div className="min-h-screen bg-[#979f8a] p-6 text-white relative">
       <div className="mb-6 text-center">
-  <h1 className="text-4xl font-bold mb-2">Photo Gallery</h1>
+        <h1 className="text-4xl font-bold mb-2">Photo Gallery</h1>
 
-  <button
-    onClick={() => setShowAddPhotos(true)}
-    className="block mx-auto bg-white/20 text-white px-3 py-1 rounded hover:bg-white/40 transition text-base"
-  >
-    Please upload your photos from the wedding!!
-  </button>
-</div>
+        <button
+          onClick={() => setShowAddPhotos(true)}
+          className="block mx-auto bg-white/20 text-white px-3 py-1 rounded hover:bg-white/40 transition text-base"
+        >
+          Please upload your photos from the wedding!!
+        </button>
+      </div>
 
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -222,7 +127,6 @@ export default function Gallery() {
                 <span>{likes[photo.name]?.count || 0}</span>
               </button>
             </div>
-            
           </div>
         ))}
       </div>

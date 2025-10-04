@@ -1,4 +1,5 @@
-import { useState } from "react";
+{/*
+  import { useState } from "react";
 import { supabase } from "../supabaseClient";
 
 export default function RSVPForm({ invite }) {
@@ -62,3 +63,4 @@ export default function RSVPForm({ invite }) {
     </form>
   );
 }
+*/}
