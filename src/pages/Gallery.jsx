@@ -186,17 +186,17 @@ export default function Gallery() {
 
   return (
     <div className="min-h-screen bg-[#979f8a] p-6 text-white relative">
-      <div className="relative mb-6 text-center">
-        <h1 className="text-4xl font-bold inline-block">Photo Gallery</h1>
+      <div className="mb-6 text-center">
+  <h1 className="text-4xl font-bold mb-2">Photo Gallery</h1>
 
-        {/* Button on the right, but not affecting heading centering */}
-        <button
-          onClick={() => setShowAddPhotos(true)}
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/20 text-white px-3 py-1 rounded hover:bg-white/40 transition text-base"
-        >
-          Please upload your photos from the wedding!!
-        </button>
-      </div>
+  <button
+    onClick={() => setShowAddPhotos(true)}
+    className="block mx-auto bg-white/20 text-white px-3 py-1 rounded hover:bg-white/40 transition text-base"
+  >
+    Please upload your photos from the wedding!!
+  </button>
+</div>
+
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {photos.length === 0 && <p>No photos uploaded yet.</p>}
@@ -232,7 +232,7 @@ export default function Gallery() {
           <div className="relative inline-block">
             {/* Overlay wrapper to hold PhotoUpload and button */}
             <div className="relative">
-              <PhotoUpload className="opacity-90" />
+              <PhotoUpload className="opacity-90" invite={{ token: inviteId }} />
               <button
                 onClick={() => setShowAddPhotos(false)}
                 className="absolute top-2 right-2 z-10 text-white text-2xl font-bold hover:text-gray-300"

@@ -167,134 +167,90 @@ export default function InvitePage() {
         </div>
     );
 
-    return (
-    <div className="min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center">
-        {/* Hero Section */}
-{/*
-        <div className="w-full h-40 py-8 relative flex items-center justify-center">
-            <img src="/hero.jpg" alt="Bride & Groom" className="w-full h-full object-cover opacity-70"/> 
-            <div className="absolute text-center text-white px-4">
-                <h1 className="text-4xl md:text-6xl font-heading mb-2">Boyd & Rejoice</h1>
-                <p className="text-lg md:text-2xl">💕 can’t wait to celebrate with you 💕</p>
-            </div>
+return (
+  <div className="relative min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center px-4 sm:px-0">
+
+    {/* Main container */}
+    <div className="relative max-w-xl w-full bg-peach rounded-lg shadow-lg text-center mt-6 overflow-hidden
+                    pt-[120px] pb-[120px]"> {/* padding top/bottom same as frame height */}
+
+      {/* Top frame */}
+      <img
+        src="/assets/FloralFrameTop.png"
+        alt="Top Frame"
+        className="absolute top-0 left-0 right-0 w-full z-10"
+      />
+
+      {/* Bottom frame */}
+      <img
+        src="/assets/FloralFrameBottom.png"
+        alt="Bottom Frame"
+        className="absolute bottom-0 left-0 right-0 w-full z-10"
+      />
+
+      {/* Content */}
+      <div className="relative z-20 px-6 py-6 flex flex-col items-center">
+
+        {/* Invite heading */}
+        <h2 className="text-4xl font-heading mb-4">Dear {invite.name}</h2>
+        <div className="text-white px-4">
+          <h1 className="text-4xl md:text-6xl font-heading mb-2">BBB & RRRR</h1>
         </div>
-*/}
-        {/* Invite Info */}
-        <div className="max-w-xl w-full bg-peach rounded-lg p-6 shadow-lg text-center mt-6">
+        <h2 className="text-lg mb-6 text-darkbrown font-body text-white mx-auto max-w-[16rem]">
+          invite you to join them as they celebrate their wedding
+        </h2>
 
-            
-{/*<div className="max-w-xl w-full bg-invitation-frame bg-contain bg-no-repeat bg-center rounded-lg p-6 mt-8 shadow-lg text-center">*/}
-<div className="max-w-xl w-full bg-invitation bg-contain bg-no-repeat bg-center rounded-lg p-6 shadow-lg text-center">
-<h2 className="text-4xl font-heading mb-4 mt-20">Dear {invite.name}</h2>
-            {/*<h2 className="text-1xl mb-6 text-darkbrown font-body text-white">*/}
-            <div className=" text-white px-4">
-                <h1 className="text-4xl md:text-6xl font-heading mb-2">Boyd & Rejoice</h1>
-            </div>
-            <h2 className="text-lg mb-6 text-darkbrown font-body text-white mx-auto max-w-[16rem]">
-                invite you to join them as they celebrate their wedding
-            </h2>
-            <img 
-    src="/assets/NavbarIcon.png" 
-    alt="Wedding Icon" 
-    className="h-40 mx-auto" // bigger size
-  />
-            {/*<h2 className="text-4xl font-heading mb-4">Dear {invite.name}</h2>*/}
-            {/*<h2 className="text-1xl mb-6 text-darkbrown font-body text-white">Boyd and Rejoice would love for you to join them in celebrating their wedding</h2>*/}
+        <img
+          src="/assets/NavbarIcon.png"
+          alt="Wedding Icon"
+          className="h-40 mx-auto mb-6"
+        />
 
-            {/* Invite Details */}
-            <div className="mb-2 text-darkbrown font-body">
-            <div className="mt-2 w-full bg-lightbrown p-4 rounded-lg shadow-md
-                hover:shadow-xl transition transform hover:scale-105 animate-fadeIn bg-opacity-60">
-                <p className="text-lg mb-2">
-                    <span className="font-semibold">Date & Time:</span> 22nd November 2025 at 10:30AM
-                </p>
-                {/*<p className="text-lg mb-2">
-                    <span className="font-semibold">Place:</span> Rod and Hazel's Backyard
-                </p> */}
-                <p className="text-lg mb-2">
-                    <span className="font-semibold">Address:</span> Somewhere in Chidlow
-                </p>
-                {invite.reception && (
-                    <p className="text-lg mb-2">
-                        {/*<span className="font-semibold">Reception:</span> */}
-                        Join us for a casual reception with grazing tables and drinks at same loation at 6:00PM
-                    </p>
-                )}
-            </div>
-                {/*<p className="text-lg mb-2">
-                    <span className="font-semibold">
-                        RSVP By:
-                    </span> {invite.rsvp_by}
-                </p>*/}
-            </div>
-
-            {/* RSVP */}
-            <div className="mb-4">
-                <p className="mb-2 font-semibold">Will you be attending?</p>
-                <div className="flex justify-center gap-4">
-                    {/*
-                    <button
-                        className={`px-4 py-2 rounded ${
-                        rsvpStatus === "yes" ? "bg-copper text-white" : "bg-lightbrown"
-                        }`}
-                        onClick={() => handleRsvp("yes")}
-                    >
-                        Yes
-                    </button>
-                    <button
-                        className={`px-4 py-2 rounded ${
-                        rsvpStatus === "no" ? "bg-copper text-white" : "bg-lightbrown"
-                        }`}
-                        onClick={() => handleRsvp("no")}
-                    >
-                        No
-                    </button>
-                    */}
-                <button
-                    className={`btn ${rsvpStatus === "yes" ? "btn-copper" : "btn-lightbrown"}`}
-                    onClick={() => handleRsvp("yes")}
-                >
-                    Yes
-                </button>
-                <button
-                    className={`btn ${rsvpStatus === "no" ? "btn-copper" : "btn-lightbrown"}`}
-                    onClick={() => handleRsvp("no")}
-                >
-                    No
-                </button>
-
-                </div>
-                <p className="text-lg mb-2">Please RSVP by 15th November</p>
-            </div>
-
-            {/*<PhotoUpload invite={invite} />*/}
-            <RsvpMessage invite={invite} />
-
-            {/* Links */}
-            {/*<div className="flex flex-col gap-2 mt-4">
-                <a
-                href="/gallery"
-                className="text-darkbrown underline hover:text-copper"
-                >
-                View Gallery
-                </a>
-                <a
-                href="/registry"
-                className="text-darkbrown underline hover:text-copper"
-                >
-                Gift Registry
-                </a>
-                <a
-                href="https://www.google.com/maps?q=Your+Wedding+Location"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-darkbrown underline hover:text-copper"
-                >
-                Get Directions
-                </a>
-            </div>*/}
-</div>
+        {/* Invite details */}
+        <div className="mb-4 text-darkbrown font-body w-full">
+          <div className="w-full bg-lightbrown p-4 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 bg-opacity-60">
+            <p className="text-lg mb-2">
+              <span className="font-semibold">Date & Time:</span> 1st November 2025 at 10:30AM
+            </p>
+            <p className="text-lg mb-2">
+              <span className="font-semibold">Address:</span> Somewhere or other
+            </p>
+            {invite.reception && (
+              <p className="text-lg mb-2">
+                Join us for a casual reception with grazing tables and drinks at the same location at 6:00PM
+              </p>
+            )}
+          </div>
         </div>
-    </div>
-    );
-    }
+
+        {/* RSVP */}
+        <div className="mb-6">
+          <p className="mb-2 font-semibold">Will you be attending?</p>
+          <div className="flex justify-center gap-4">
+            <button
+              className={`btn ${rsvpStatus === "yes" ? "btn-copper" : "btn-lightbrown"}`}
+              onClick={() => handleRsvp("yes")}
+            >
+              Yes
+            </button>
+            <button
+              className={`btn ${rsvpStatus === "no" ? "btn-copper" : "btn-lightbrown"}`}
+              onClick={() => handleRsvp("no")}
+            >
+              No
+            </button>
+          </div>
+          <p className="text-lg mb-2">Please RSVP by 15th November</p>
+        </div>
+
+        <RsvpMessage invite={invite} />
+
+      </div> {/* End content */}
+
+    </div> {/* End main container */}
+
+  </div> // End page container
+);
+
+
+}

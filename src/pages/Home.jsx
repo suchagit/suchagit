@@ -83,12 +83,30 @@ export default function Home() {
     return (
     <div className="text-brown">
         <div
-        className="relative h-screen bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: `url(${heroImg})` }}
-        >
-        <div className="bg-peach bg-opacity-80 p-8 rounded-xl text-center shadow-lg animate-fade-in">
-            <h1 className="text-6xl font-bold mb-4 tracking-wide">Boyd & Rejoice </h1>
-            <p className="text-2xl">💕 We can’t wait to celebrate with you 💕</p>
+  className="relative h-screen bg-cover bg-center flex items-center justify-center"
+  style={{ backgroundImage: `url(${heroImg})` }}
+>
+  <div className="bg-peach bg-opacity-80 p-8 rounded-xl text-center shadow-lg animate-fade-in mx-4 sm:mx-8">
+            <h1 className="text-6xl font-bold mb-4 tracking-wide text-center">
+  <span className="block sm:inline">Boyd</span>{" "}
+  <span className="block sm:inline">&</span>{" "}
+  <span className="block sm:inline">Rejoice</span>
+</h1>
+            <p className="text-2xl text-center flex flex-wrap justify-center items-center">
+  {/* Leading heart on wide screens */}
+  <span className="hidden sm:inline mr-1">💕</span>
+
+  {/* Main text */}
+  <span className="break-words">We can’t wait to celebrate with you</span>
+
+  {/* Trailing hearts */}
+  <span className="ml-1 mt-1 sm:mt-0">
+    {/* Wide screen: single trailing heart, narrow: both hearts */}
+    <span className="hidden sm:inline">💕</span>
+    <span className="sm:hidden">💕 💕</span>
+  </span>
+</p>
+
             {/*<p className="mt-4 text-lg">Explore your invitation, RSVP, and more</p>*/}
             <div className="flex flex-col items-center gap-4 mt-6">
                 <NavButton to="/invite">Open Your Invitation</NavButton>
