@@ -114,83 +114,126 @@ export default function InvitePage() {
     return (
         <div className="relative min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center px-4 sm:px-0">
 
-            {/* Main container */}
-            <div className="relative max-w-xl w-full bg-peach rounded-lg shadow-lg text-center mt-6 overflow-hidden pt-[120px] pb-[120px]"> {/* padding top/bottom same as frame height */}
+        {/* Main container */}
+        <div className="relative max-w-xl w-full bg-peach rounded-lg shadow-lg text-center mt-6 overflow-hidden pt-[70px] pb-[110px]">
 
-                {/* Top frame */}
-                <img
-                    src="/assets/FloralFrameTop.png"
-                    alt="Top Frame"
-                    className="absolute top-0 left-0 right-0 w-full z-10"
-                />
+            {/* Top frame */}
+            <img
+            src="/assets/RedClusterFrameTop.png"
+            alt="Top Frame"
+            className="absolute top-0 left-0 right-0 w-full z-10"
+            />
 
-                {/* Bottom frame */}
-                <img
-                    src="/assets/FloralFrameBottom.png"
-                    alt="Bottom Frame"
-                    className="absolute bottom-0 left-0 right-0 w-full z-10"
-                />
+            {/* Bottom frame */}
+            <img
+            src="/assets/RedClusterFrameBottom.png"
+            alt="Bottom Frame"
+            className="absolute bottom-0 left-0 right-0 w-full z-10"
+            />
 
-                {/* Content */}
-                <div className="relative z-20 px-6 py-6 flex flex-col items-center">
+            {/* Side frames (repeating) */}
+            <div
+            className="absolute top-[70px] bottom-[120px] left-0 right-0 z-5 pointer-events-none"
+            style={{
+                backgroundImage: "url(/assets/RedClusterFrameSides.png)",
+                backgroundRepeat: "repeat-y",
+                backgroundPosition: "left top, right top",
+                backgroundSize: "contain",
+            }}
+            >
+            </div>
 
-                    {/* Invite heading */}
-                    <h2 className="text-4xl font-heading mb-4">Dear {invite.name}</h2>
-                    <div className="text-white px-4">
-                    <h1 className="text-4xl md:text-6xl font-heading mb-2">Boyd & Rejoice</h1>
-                    </div>
-                    <h2 className="text-lg mb-6 text-darkbrown font-body text-white mx-auto max-w-[16rem]">
-                    invite you to join them as they celebrate their wedding
-                    </h2>
+            {/* Content */}
+            <div className="relative z-20 px-6 py-6 flex flex-col items-center">
 
-                    {/*Central image*/}
+                {/* Invite heading */}
+                <h2 className="text-3xl sm:text-4xl font-serif mb-4 text-darkbrown italic tracking-wide drop-shadow-sm">
+                    Dear {invite.name}
+                </h2>
+
+                {/* Central image with text overlay */}
+                <div className="relative mx-auto mb-6">
+                    {/* Background image */}
                     <img
-                    src="/assets/InviteImage.png"
+                    src="/assets/RedCluster.png"
                     alt="Wedding Icon"
-                    className="h-40 mx-auto mb-6"
+                    className="h-60 md:h-80 w-auto mx-auto object-contain"
                     />
 
-                    {/* Invite details */}
-                    <div className="mb-4 text-darkbrown font-body w-full">
-                        <div className="w-full bg-lightbrown p-4 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 bg-opacity-60">
-                            <p className="text-lg mb-2">
-                            <span className="font-semibold">Date & Time:</span> Nth November 2025 at 10:30AM
-                            </p>
-                            <p className="text-lg mb-2">
-                            <span className="font-semibold">Address:</span> Somewhere or Other
-                            </p>
-                            {invite.reception && (
-                            <p className="text-lg mb-2">
-                                Join us for a casual reception with grazing tables and drinks at the same location at 6:00PM
-                            </p>
-                            )}
-                        </div>
+                    {/* Overlayed text */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <h1 className="text-3xl md:text-5xl font-heading text-white drop-shadow-md">
+                        Boyd & Rejoice
+                    </h1>
+                    <h2 className="text-base md:text-lg font-serif text-white italic tracking-wider mt-2 max-w-[16rem] drop-shadow-sm">
+                        invite you to join them as they celebrate their wedding
+                    </h2>
                     </div>
+                </div>
 
-                    {/* RSVP */}
-                    <div className="mb-6">
-                        <p className="mb-2 font-semibold">Will you be attending?</p>
-                        <div className="flex justify-center gap-4">
-                            <button
-                            className={`btn ${rsvpStatus === "yes" ? "btn-copper" : "btn-lightbrown"}`}
-                            onClick={() => handleRsvp("yes")}
-                            >
-                            Yes
-                            </button>
-                            <button
-                            className={`btn ${rsvpStatus === "no" ? "btn-copper" : "btn-lightbrown"}`}
-                            onClick={() => handleRsvp("no")}
-                            >
-                            No
-                            </button>
-                        </div>
-                        <p className="text-lg mb-2">Please RSVP by 15th November</p>
+                {/* Invite details */}
+                {/*
+                <div className="mb-4 text-darkbrown font-serif w-full">
+                    <div className="w-full bg-lightbrown p-4 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 bg-opacity-60">
+                    <p className="text-lg mb-2 italic tracking-wide">
+                        <span className="font-semibold">Date & Time:</span> Nth November 2025 at 10:30AM
+                    </p>
+                    <p className="text-lg mb-2 italic tracking-wide">
+                        <span className="font-semibold">Address:</span> Somewhere or Other
+                    </p>
+                    {invite.reception && (
+                        <p className="text-lg mb-2 italic tracking-wide">
+                        Join us for a casual reception with grazing tables and drinks at the same location at 6:00PM
+                        </p>
+                    )}
                     </div>
+                </div>
+                */}
+                {/* Invite details */}
+                <div className="mb-4 text-darkbrown font-serif w-full max-w-[85%] mx-auto">
+                    <div className="w-full bg-lightbrown p-4 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 bg-opacity-60">
+                        <p className="text-lg mb-2 italic tracking-wide">
+                        <span className="font-semibold">Date & Time:</span> 29th November 2025 at 11:00AM
+                        </p>
+                        <p className="text-lg mb-2 italic tracking-wide">
+                        <span className="font-semibold">Address:</span> Somewhere or Other
+                        </p>
+                        {invite.reception && (
+                        <p className="text-lg mb-2 italic tracking-wide">
+                        Join us for a casual reception with grazing tables and drinks at the same location at 6:00PM
+                        </p>
+                        )}
+                    </div>
+                </div>
 
+                {/* RSVP */}
+                <div className="mb-6 text-center font-serif italic tracking-wide">
+                    <p className="mb-2 font-semibold">Will you be attending?</p>
+                    <div className="flex justify-center gap-4">
+                    <button
+                        className={`btn ${rsvpStatus === "yes" ? "btn-copper" : "btn-lightbrown"}`}
+                        onClick={() => handleRsvp("yes")}
+                    >
+                        Yes
+                    </button>
+                    <button
+                        className={`btn ${rsvpStatus === "no" ? "btn-copper" : "btn-lightbrown"}`}
+                        onClick={() => handleRsvp("no")}
+                    >
+                        No
+                    </button>
+                    </div>
+                    <p className="text-lg mb-2">Please RSVP by 15th November</p>
+                </div>
+
+                {/* RsvpMessage */}
+                <div className="w-full max-w-[85%] mx-auto">
                     <RsvpMessage invite={invite} />
+                </div>
+            </div> {/* End content */}
+        </div> {/* End main container */}
+    </div> // End page container
+);
 
-                </div> {/* End content */}
-            </div> {/* End main container */}
-        </div> // End page container
-    );
+
 }

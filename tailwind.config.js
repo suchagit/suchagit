@@ -18,7 +18,7 @@ module.exports = {
         body: ["Inter", "sans-serif"],
       },
       backgroundImage: {
-        'invitation': "url('/assets/FloralFrame.png')",
+        'invitation': "url('/assets/FloralClusterFrame.png')",//'invitation': "url('/assets/FloralFrame.png')",
       },
     },
   },
