@@ -147,7 +147,7 @@ export default function InvitePage() {
             <div className="relative z-20 px-6 py-6 flex flex-col items-center">
 
                 {/* Invite heading */}
-                <h2 className="text-3xl sm:text-4xl font-serif mb-4 text-darkbrown italic tracking-wide drop-shadow-sm">
+                <h2 className="text-2xl sm:text-4xl font-serif mb-4 text-darkbrown italic tracking-wide drop-shadow-sm">
                     Dear {invite.name}
                 </h2>
 
@@ -162,9 +162,19 @@ export default function InvitePage() {
 
                     {/* Overlayed text */}
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <h1 className="text-3xl md:text-5xl font-heading text-white drop-shadow-md">
-                        Boyd & Rejoice
-                    </h1>
+<h1
+  className="
+    text-5xl md:text-5xl font-heading text-white drop-shadow-md 
+    flex flex-col md:flex-row items-center justify-center 
+    leading-tight md:leading-normal
+  "
+>
+  <span className="md:mr-2">Boyd</span>
+  <span className="md:mx-2">&</span>
+  <span className="md:ml-2">Rejoice</span>
+</h1>
+
+
                     <h2 className="text-base md:text-lg font-serif text-white italic tracking-wider mt-2 max-w-[16rem] drop-shadow-sm">
                         invite you to join them as they celebrate their wedding
                     </h2>
@@ -207,7 +217,7 @@ export default function InvitePage() {
                 </div>
 
                 {/* RSVP */}
-                <div className="mb-6 text-center font-serif italic tracking-wide">
+                <div className="mb-2 text-center font-serif italic tracking-wide">
                     <p className="mb-2 font-semibold">Will you be attending?</p>
                     <div className="flex justify-center gap-4">
                     <button
@@ -223,7 +233,7 @@ export default function InvitePage() {
                         No
                     </button>
                     </div>
-                    <p className="text-lg mb-2">Please RSVP by 15th November</p>
+                    <p className="text-lg mb-1 mt-1">Please RSVP by 15th November</p>
                 </div>
 
                 {/* RsvpMessage */}
