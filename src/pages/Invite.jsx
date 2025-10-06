@@ -200,7 +200,7 @@ export default function InvitePage() {
                         </p>
                         {invite.reception && (
                         <p className="text-lg mb-2 italic tracking-wide">
-                        Join us for a casual reception with grazing tables and drinks at the same location at 6:00PM
+                            Join us for a casual reception with grazing tables and drinks at the same location at 6:00PM
                         </p>
                         )}
                     </div>

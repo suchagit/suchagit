@@ -51,22 +51,22 @@ export default function RsvpNotes({ invite }) {
   if (loading) return <p className="p-4 text-center text-sm">Loading…</p>;
 
   return (
-    <div className="mt-4 w-full max-w-lg bg-lightbrown p-3 rounded-lg shadow-md hover:shadow-lg transition transform animate-fadeIn bg-opacity-60">
-      <div className="flex items-center gap-2">
-        <input
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Optional RSVP note"
-          className="flex-1 p-2 rounded border border-gray-300 bg-peach/30 text-sm placeholder-darkbrown/50 focus:outline-none focus:ring-2 focus:ring-copper"
-        />
-        <button
-          onClick={handleSave}
-          disabled={saving || !message.trim()}
-          className={`btn btn-copper text-sm px-3 py-1 ${!saving && "btn-hover-scale"}`}
-        >
-          {saving ? "Saving…" : message ? "Update" : "Send"}
-        </button>
-      </div>
+    <div className="mt-4 w-full max-w-lg bg-lightbrown p-3 rounded-lg shadow-md hover:shadow-lg transition transform animate-fadeIn bg-opacity-60 mx-auto overflow-hidden">
+        <div className="flex items-center gap-2 w-full">
+            <input
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Optional RSVP note"
+                className="flex-1 min-w-0 p-2 rounded border border-gray-300 bg-peach/30 text-sm placeholder-darkbrown/50 focus:outline-none focus:ring-2 focus:ring-copper"
+            />
+            <button
+                onClick={handleSave}
+                disabled={saving || !message.trim()}
+                className={`btn btn-copper text-sm px-3 py-1 ${!saving && "btn-hover-scale"}`}
+            >
+                {saving ? "Saving…" : message ? "Update" : "Send"}
+            </button>
+        </div>
     </div>
   );
 }
