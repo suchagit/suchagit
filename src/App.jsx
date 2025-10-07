@@ -7,6 +7,9 @@ import Gallery from "./pages/Gallery";
 import Directions from "./pages/Directions";
 import { InviteProvider } from "./context/InviteContext";
 
+const groomName = import.meta.env.VITE_NAME_GROOM;
+const brideName = import.meta.env.VITE_NAME_BRIDE;
+
 function App() {
   return (
     <InviteProvider>
@@ -21,8 +24,9 @@ function App() {
             <Route path="/directions" element={<Directions />} />
           </Routes>
         </div>
+        {/*<footer className="text-center py-4 text-gray-500 text-sm">*/}
         <footer className="text-center py-4 text-gray-500 text-sm">
-          © 2025 Boyd & Rejoice
+          © 2025 {groomName} & {brideName}
         </footer>
       </Router>
     </InviteProvider>

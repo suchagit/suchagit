@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import PhotoUpload from "../components/PhotoUpload";
+import heroImg from "../assets/SoftTulipsCropped4.png"//"../assets/br-hero.jpg";
+import { useInvite } from "../context/InviteContext";
 
 export default function Gallery() {
   const [photos, setPhotos] = useState([]);
@@ -8,6 +10,9 @@ export default function Gallery() {
   const [likes, setLikes] = useState({});
   const inviteId = localStorage.getItem("inviteId");
   const [showAddPhotos, setShowAddPhotos] = useState(false);
+
+  const { invite, unauthorized } = useInvite();
+  
 
   // Load photos
   useEffect(() => {
@@ -87,6 +92,24 @@ export default function Gallery() {
     fetchLikes(photos.map((p) => p.name));
   };
 
+  if (unauthorized)
+    return (
+      <div className="min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center justify-center">
+        <div className="max-w-xl w-full bg-peach rounded-lg p-6 shadow-lg text-center">
+          <h2 className="text-2xl font-heading mb-4">Unauthorized access</h2>
+        </div>
+      </div>
+    );
+
+  if (!invite)
+    return (
+      <div className="min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center justify-center">
+        <div className="max-w-xl w-full bg-peach rounded-lg p-6 shadow-lg text-center">
+          <h2 className="text-2xl font-heading mb-4">Loading invitation...</h2>
+        </div>
+      </div>
+    );
+
   if (loading) return <p className="p-8 text-center">Loading gallery…</p>;
 
   return (
@@ -104,7 +127,7 @@ export default function Gallery() {
 
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {photos.length === 0 && <p>No photos uploaded yet.</p>}
+        {photos.length === 0 && <p>No photos uploaded yet</p>}
         {photos.map((photo, idx) => (
           <div key={idx} className="overflow-hidden rounded-lg shadow-md p-2 bg-white/10">
             <div className="relative">

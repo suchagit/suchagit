@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
+import heroImg from "../assets/SoftTulipsCropped4.png"//"../assets/br-hero.jpg";
 
 export default function Registry() {
   const inviteId = localStorage.getItem("inviteId");
@@ -24,7 +25,6 @@ export default function Registry() {
 
       setInvite(data);
     };
-
     fetchInvite();
   }, [inviteId]);
 

@@ -1,121 +1,84 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
-import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import PhotoUpload from "../components/PhotoUpload";
+import { useInvite } from "../context/InviteContext";
 import RsvpMessage from "../components/RsvpMessage";
+import heroImg from "../assets/SoftTulipsCropped4.png";
 
 export default function InvitePage() {
-    const [invite, setInvite] = useState(null);
-    const [rsvpStatus, setRsvpStatus] = useState(null);
-    const [photoFile, setPhotoFile] = useState(null);
-    const [uploading, setUploading] = useState(false);
+  const { invite, unauthorized, saveInvite } = useInvite();
+  const [rsvpStatus, setRsvpStatus] = useState(invite?.rsvp_status || null);
+  const navigate = useNavigate();
 
-    const { inviteId: urlInviteId } = useParams(); // optional URL parameter
-    const [inviteId, setInviteId] = useState(null); // actual validated inviteId
-    const [loading, setLoading] = useState(true);
-    const [unauthorized, setUnauthorized] = useState(false);
+  const groomName = import.meta.env.VITE_NAME_GROOM;
+  const brideName = import.meta.env.VITE_NAME_BRIDE;
+  const rsvpDate = import.meta.env.VITE_RSVP_BY;
+  const ceremonyAddress = import.meta.env.VITE_CEREMONY_ADDRESS;
+  const ceremonyDate = import.meta.env.VITE_CEREMONY_DATE;
+  const ceremonyTime = import.meta.env.VITE_CEREMONY_TIME;
+  const receptionLocation = import.meta.env.VITE_RECEPTION_LOCATION;
+  const receptionTime = import.meta.env.VITE_RECEPTION_TIME;
 
-    useEffect(() => {
-    async function loadInvite() {
-    const storedId = localStorage.getItem("inviteId");
-    if (!storedId) {
-        // No stored invite — maybe user navigated here directly without validation
-        navigate("/"); // redirect back to Home or show unauthorized message
-        return;
-    }
-    // Optionally re-fetch full invite details (if not already passed via props)
-    const { data, error } = await supabase
-        .from("invites")
-        .select("*")
-        .eq("token", storedId)
-        .single();
-    if (error || !data) {
-        console.error("Invalid stored invite");
-        navigate("/");
-        return;
-    }
-    setInvite(data);
-    }
-    loadInvite();
-    }, []);
 
-    useEffect(() => {
-    async function validateInvite(id) {
-        const { data, error } = await supabase
-        .from("invites")
-        .select("*")
-        .eq("token", id)
-        .single();
+// Only set once on initial invite load
+useEffect(() => {
+  if (invite && rsvpStatus === null) {
+    setRsvpStatus(invite.rsvp_status || null);
+  }
+}, [invite]);
 
-        if (error || !data) {
-        console.error(error);
-        return null;
-        }
-        return data;
-    };
+const handleRsvp = async (status) => {
+  if (!invite?.token) return;
 
-    async function initInvite() {
-        let idToUse = urlInviteId || localStorage.getItem("inviteId");
-        if (!idToUse) {
-            setUnauthorized(true);
-            setLoading(false);
-            return;
-        }
-        const inviteData = await validateInvite(idToUse);
-        if (!inviteData) {
-            setUnauthorized(true);
-            setLoading(false);
-            return;
-        }
-        // valid token, store it
-        setInviteId(inviteData.token);
-        localStorage.setItem("inviteId", inviteData.token);
-        setInvite(inviteData);
-        setRsvpStatus(inviteData.rsvp_status);
-        setUnauthorized(false);
-        setLoading(false);
-    }
-    initInvite();
-    }, [urlInviteId]);
+  // Immediately update UI
+  setRsvpStatus(status);
 
-    const handleRsvp = async (value) => {
-        setRsvpStatus(value);
-        const { data, error } = await supabase
-            .from("invites")
-            .update({ rsvp_status: value })
-            .eq("token", inviteId);
-            console.log("data: ", data);
-            console.log("error: ", error);
-        if (error) console.error(error);
-    };
+  const { data, error } = await supabase
+    .from("invites")
+    .update({ rsvp_status: status })
+    .eq("token", invite.token)
+    .select()
+    .single();
 
-    if (loading) return (
-        <div className="min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center">
-            <div className="max-w-xl w-full bg-peach rounded-lg p-6 mt-8 shadow-lg text-center">
-                <h2 className="text-2xl font-heading mb-4">Loading...</h2>
-            </div>
+  if (error) {
+    console.error(error);
+    // Optional: revert state if backend fails
+    setRsvpStatus(invite.rsvp_status);
+    return;
+  }
+
+  // Update context safely, don't let it overwrite UI
+  saveInvite({ ...invite, rsvp_status: status });
+};
+
+  // UI states
+  if (unauthorized)
+    return (
+      <div className="min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center justify-center">
+        <div className="max-w-xl w-full bg-peach rounded-lg p-6 shadow-lg text-center">
+          <h2 className="text-2xl font-heading mb-4">Unauthorized access</h2>
         </div>
+      </div>
     );
-    if (unauthorized) return (
-        <div className="min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center">
-            <div className="max-w-xl w-full bg-peach rounded-lg p-6 mt-8 shadow-lg text-center">
-                <h2 className="text-2xl font-heading mb-4">Unauthorised access</h2>
-            </div>
+
+  if (!invite)
+    return (
+      <div className="min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center justify-center">
+        <div className="max-w-xl w-full bg-peach rounded-lg p-6 shadow-lg text-center">
+          <h2 className="text-2xl font-heading mb-4">Loading invitation...</h2>
         </div>
-    );
-    if (!invite) return (
-        <div className="min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center">
-            <div className="max-w-xl w-full bg-peach rounded-lg p-6 mt-8 shadow-lg text-center">
-                <h2 className="text-2xl font-heading mb-4">Loading invitation...</h2>
-            </div>
-        </div>
+      </div>
     );
 
     return (
         <div className="relative min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center px-4 sm:px-0">
+<div
+    className="absolute inset-0 w-full h-full bg-center bg-cover opacity-50 pointer-events-none"
+    style={{ backgroundImage: `url(${heroImg})` }}
+  ></div>
 
         {/* Main container */}
-        <div className="relative max-w-xl w-full bg-peach rounded-lg shadow-lg text-center mt-6 overflow-hidden pt-[70px] pb-[110px]">
+        <div className="relative max-w-xl w-full bg-peach rounded-lg shadow-lg text-center mt-6 mb-6 overflow-hidden pt-[70px] pb-[110px]">
 
             {/* Top frame */}
             <img
@@ -169,9 +132,9 @@ export default function InvitePage() {
     leading-tight md:leading-normal
   "
 >
-  <span className="md:mr-2">Boyd</span>
+  <span className="md:mr-2">{groomName}</span>
   <span className="md:mx-2">&</span>
-  <span className="md:ml-2">Rejoice</span>
+  <span className="md:ml-2">{brideName}</span>
 </h1>
 
 
@@ -203,14 +166,14 @@ export default function InvitePage() {
                 <div className="mb-4 text-darkbrown font-serif w-full max-w-[85%] mx-auto">
                     <div className="w-full bg-lightbrown p-4 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 bg-opacity-60">
                         <p className="text-lg mb-2 italic tracking-wide">
-                        <span className="font-semibold">Date & Time:</span> 29th November 2025 at 11:00AM
+                        <span className="font-semibold">Date & Time:</span> {ceremonyDate} at {ceremonyTime}
                         </p>
                         <p className="text-lg mb-2 italic tracking-wide">
-                        <span className="font-semibold">Address:</span> Somewhere or Other
+                        <span className="font-semibold">Address:</span> {ceremonyAddress}
                         </p>
                         {invite.reception && (
                         <p className="text-lg mb-2 italic tracking-wide">
-                            Join us for a casual reception with grazing tables and drinks at the same location at 6:00PM
+                            Join us for a reception at {receptionLocation} at {receptionTime}
                         </p>
                         )}
                     </div>
@@ -233,7 +196,7 @@ export default function InvitePage() {
                         No
                     </button>
                     </div>
-                    <p className="text-lg mb-1 mt-1">Please RSVP by 15th November</p>
+                    <p className="text-lg mb-1 mt-1">Please RSVP by {rsvpDate}</p>
                 </div>
 
                 {/* RsvpMessage */}
@@ -244,6 +207,4 @@ export default function InvitePage() {
         </div> {/* End main container */}
     </div> // End page container
 );
-
-
 }
