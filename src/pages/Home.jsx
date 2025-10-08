@@ -81,7 +81,7 @@ export default function Home() {
     //);
     */}
 
-    import { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import heroImg from "../assets/SoftTulipsCropped4.png";
 import NavButton from "../components/NavButton";
@@ -148,7 +148,7 @@ export default function Home() {
         </div>
       </div>
     );
-    
+
     return (
         <div className="text-brown">
             <div

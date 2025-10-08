@@ -1,37 +1,18 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import heroImg from "../assets/SoftTulipsCropped4.png"//"../assets/br-hero.jpg";
+import { useInvite } from "../context/InviteContext";
 
 export default function Registry() {
   const inviteId = localStorage.getItem("inviteId");
-
-  const [invite, setInvite] = useState(null);
+  //const [invite, setInvite] = useState(null);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // Fetch invite info
-  useEffect(() => {
-    const fetchInvite = async () => {
-      const { data, error } = await supabase
-        .from("invites")
-        .select("*")
-        .eq("token", inviteId)
-        .single();
-
-      if (error) {
-        alert("Error fetching invite info");
-        return;
-      }
-
-      setInvite(data);
-    };
-    fetchInvite();
-  }, [inviteId]);
+  const { invite, unauthorized } = useInvite();
 
   // Fetch registry items
   useEffect(() => {
     const fetchItems = async () => {
-        console.log("Fetching all items");
       const { data, error } = await supabase
         .from("registry_items")
         .select("*")
@@ -41,22 +22,32 @@ export default function Registry() {
         setLoading(false);
         return;
       }
-      console.log("Fetched all items");
-
       setItems(data);
       setLoading(false);
     };
-
     fetchItems();
   }, []);
 
-  if (loading || !invite)
-    return <p className="p-8 text-center">Loading registry…</p>;
+  if (unauthorized)
+    return (
+      <div className="min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center justify-center">
+        <div className="max-w-xl w-full bg-peach rounded-lg p-6 shadow-lg text-center">
+          <h2 className="text-2xl font-heading mb-4">Unauthorized access</h2>
+        </div>
+      </div>
+    );
+
+  if (!invite)
+    return (
+      <div className="min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center justify-center">
+        <div className="max-w-xl w-full bg-peach rounded-lg p-6 shadow-lg text-center">
+          <h2 className="text-2xl font-heading mb-4">Loading invitation...</h2>
+        </div>
+      </div>
+    );
 
   // Toggle reserve/unreserve
   const toggleReservation = async (itemId, isMine) => {
-    console.log("Toggling the reservation");
-    console.log("Invited: ", invite);
     const { error } = await supabase
       .from("registry_items")
       .update({
@@ -65,10 +56,8 @@ export default function Registry() {
       .eq("id", itemId)
       .or(`reserved_by.is.null,reserved_by.eq.${invite.token}`);
     if (error) {
-        console.log("Couldn't togtle the item");
       alert("Error updating reservation");
     } else {
-        console.log("Toggled the item");
       setItems((prev) =>
         prev.map((item) =>
           item.id === itemId

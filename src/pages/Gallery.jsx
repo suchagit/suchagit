@@ -16,11 +16,21 @@ export default function Gallery() {
 
   // Load photos
   useEffect(() => {
+    const deleteEmpty = async () => {
+      const { error } = await supabase
+        .storage
+        .from("uploads")
+        .remove([".emptyFolderPlaceholder"])
+      if (error) {
+        console.error('Error deleting placeholder:', error)
+      } else {
+        console.log('Placeholder deleted successfully')
+      }
+    };
     const fetchPhotos = async () => {
       const { data, error } = await supabase.storage
         .from("uploads")
         .list("", { limit: 100, offset: 0, sortBy: { column: "name", order: "asc" } });
-
       if (error) {
         console.error(error);
       } else {
@@ -38,6 +48,7 @@ export default function Gallery() {
       }
       setLoading(false);
     };
+    //deleteEmpty(); Un-comment to delete the auto-generated .emptyFolderPlaceholder file
     fetchPhotos();
   }, []);
 

@@ -118,29 +118,27 @@ const handleRsvp = async (status) => {
                 <div className="relative mx-auto mb-6">
                     {/* Background image */}
                     <img
-                    src="/assets/RedCluster.png"
+                    src="/assets/RoseTulipCluster.png"//"/assets/RedCluster.png"
                     alt="Wedding Icon"
-                    className="h-60 md:h-80 w-auto mx-auto object-contain"
+                    className="h-60 md:h-80 w-auto mx-auto object-contain opacity-80 drop-shadow-lg"
                     />
 
                     {/* Overlayed text */}
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-<h1
-  className="
-    text-5xl md:text-5xl font-heading text-white drop-shadow-md 
-    flex flex-col md:flex-row items-center justify-center 
-    leading-tight md:leading-normal
-  "
->
-  <span className="md:mr-2">{groomName}</span>
-  <span className="md:mx-2">&</span>
-  <span className="md:ml-2">{brideName}</span>
-</h1>
-
-
-                    <h2 className="text-base md:text-lg font-serif text-white italic tracking-wider mt-2 max-w-[16rem] drop-shadow-sm">
-                        invite you to join them as they celebrate their wedding
-                    </h2>
+                        <h1
+                        className="
+                            text-5xl md:text-5xl font-heading text-white drop-shadow-md 
+                            flex flex-col md:flex-row items-center justify-center 
+                            leading-tight md:leading-normal
+                        "
+                        >
+                            <span className="md:mr-2">{groomName}</span>
+                            <span className="md:mx-2">&</span>
+                            <span className="md:ml-2">{brideName}</span>
+                        </h1>
+                        <h2 className="text-base md:text-lg font-serif text-white italic tracking-wider mt-2 max-w-[16rem] drop-shadow-sm">
+                            invite you to join them as they celebrate their wedding
+                        </h2>
                     </div>
                 </div>
 
@@ -171,7 +169,7 @@ const handleRsvp = async (status) => {
                         <p className="text-lg mb-2 italic tracking-wide">
                         <span className="font-semibold">Address:</span> {ceremonyAddress}
                         </p>
-                        {invite.reception && (
+                        {invite.reception === true && (
                         <p className="text-lg mb-2 italic tracking-wide">
                             Join us for a reception at {receptionLocation} at {receptionTime}
                         </p>
@@ -203,7 +201,13 @@ const handleRsvp = async (status) => {
                 <div className="w-full max-w-[85%] mx-auto">
                     <RsvpMessage invite={invite} />
                 </div>
+
             </div> {/* End content */}
+            <img
+        src="/assets/CarriageOnly.png"
+        alt="Overlay Carriage"
+        className="absolute bottom-[28px] pt-10 left-1/2 transform -translate-x-1/2 h-32 md:h-40 w-auto z-15"
+    />
         </div> {/* End main container */}
     </div> // End page container
 );

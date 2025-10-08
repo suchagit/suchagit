@@ -10,7 +10,7 @@ export default function Directions() {
   const receptionMapUrl = import.meta.env.VITE_RECEPTION_MAP;
 
   const { invite, unauthorized } = useInvite();
-
+console.log("INVITE: ", invite);
   if (unauthorized)
     return (
       <div className="min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center justify-center">
@@ -36,6 +36,7 @@ export default function Directions() {
 
       <div className="max-w-4xl mx-auto bg-peach p-6 rounded-lg shadow-md mb-6">
         {/* Venue Location */}
+        <h1 className="text-3xl font-semibold mb-4 text-center">Ceremony</h1>
         <h2 className="text-2xl font-semibold mb-4">{ceremonyLocation}</h2>
         <p className="mb-4">{ceremonyAddress}</p>
 
@@ -63,6 +64,38 @@ export default function Directions() {
         <ul className="list-disc list-inside">
           <li>Bus routes available</li>
         </ul>
+
+        {invite.reception === true && (
+            <>
+                <h1 className="text-3xl font-semibold mb-4 text-center">Reception</h1>
+                <h2 className="text-2xl font-semibold mb-4">{receptionLocation}</h2>
+                <p className="mb-4">{receptionAddress}</p>
+                <div className="w-full h-80 mb-4 rounded overflow-hidden shadow">
+                    <iframe
+                        title="Wedding Venue"
+                        src={receptionMapUrl}
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                    >
+                    </iframe>
+                </div>
+                <h2 className="text-xl font-semibold mb-2">Parking</h2>
+                <ul className="list-disc list-inside mb-4">
+                    <li>Park somewhere</li>
+                    <li>Don't park on the grass</li>
+                </ul>
+
+                <h2 className="text-xl font-semibold mb-2">Additional Notes</h2>
+                <ul className="list-disc list-inside">
+                    <li>Bus routes available</li>
+                </ul>
+            </>
+        )}
+        
       </div>
     </div>
   );
