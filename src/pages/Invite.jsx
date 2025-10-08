@@ -14,7 +14,7 @@ export default function InvitePage() {
   const brideName = import.meta.env.VITE_NAME_BRIDE;
   const rsvpDate = import.meta.env.VITE_RSVP_BY;
   const ceremonyAddress = import.meta.env.VITE_CEREMONY_ADDRESS;
-  const ceremonyDate = import.meta.env.VITE_CEREMONY_DATE;
+  const weddingDate = import.meta.env.VITE_WEDDING_DATE;
   const ceremonyTime = import.meta.env.VITE_CEREMONY_TIME;
   const receptionLocation = import.meta.env.VITE_RECEPTION_LOCATION;
   const receptionTime = import.meta.env.VITE_RECEPTION_TIME;
@@ -166,7 +166,7 @@ const handleRsvp = async (status) => {
                 <div className="mb-4 text-darkbrown font-serif w-full max-w-[85%] mx-auto">
                     <div className="w-full bg-lightbrown p-4 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 bg-opacity-60">
                         <p className="text-lg mb-2 italic tracking-wide">
-                        <span className="font-semibold">Date & Time:</span> {ceremonyDate} at {ceremonyTime}
+                        <span className="font-semibold">Date & Time:</span> {weddingDate} at {ceremonyTime}
                         </p>
                         <p className="text-lg mb-2 italic tracking-wide">
                         <span className="font-semibold">Address:</span> {ceremonyAddress}
