@@ -167,11 +167,19 @@ export default function NavBar() {
       <div className="container mx-auto flex justify-between items-center py-4 px-6 relative">
         {/* Logo */}
         <div className="flex-1 flex justify-center md:justify-start">
-          <img
+          {/*<img
             src="/assets/Logo.png"
             alt="Logo"
-            className="h-8 w-auto object-contain ml-5 md:ml-4"
-          />
+            className="h-12 w-auto object-contain ml-5 md:ml-4 -my-2"
+          />*/}
+<img
+  src="/assets/Logo.png"
+  alt="Logo"
+  className="h-12 w-auto object-contain ml-5 md:ml-4 -my-2 drop-shadow-xl transition-transform duration-300 hover:scale-110"
+/>
+
+
+
         </div>
 
         {/* Desktop Links */}

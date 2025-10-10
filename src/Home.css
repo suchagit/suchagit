@@ -1,0 +1,72 @@
+/* Overall container */
+.home-container {
+  min-height: 100vh;
+  background-color: #fdf6f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Envelope container for perspective */
+.envelope-container {
+  width: 400px;
+  height: 280px;
+  max-width: 90%; /* keeps it responsive on small screens */
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+/* Inner flip element */
+.envelope-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease-in-out;
+}
+
+/* Hover flip on desktop */
+.envelope-container:hover .envelope-inner {
+  transform: rotateY(180deg);
+}
+
+/* Tap flip on mobile */
+.envelope-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Front and back of envelope */
+.envelope-front,
+.envelope-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+  overflow: hidden;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Optional: subtle shadow on flip */
+.envelope-inner.flipped .envelope-back {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* Text overlay */
+.envelope-text {
+  color: #8b3f05;
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Make NavButton clickable on back */
+.envelope-back .envelope-text {
+  pointer-events: auto;
+}

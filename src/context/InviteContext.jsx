@@ -1,25 +1,3 @@
-{/*
-    import { createContext, useContext, useState } from "react";
-
-const InviteContext = createContext();
-
-export function InviteProvider({ children }) {
-  const [invite, setInvite] = useState(null); // validated invite
-  const [unauthorized, setUnauthorized] = useState(false); // tracks invalid token
-
-  return (
-    <InviteContext.Provider value={{ invite, setInvite, unauthorized, setUnauthorized }}>
-      {children}
-    </InviteContext.Provider>
-  );
-}
-
-// Custom hook for easy access
-export function useInvite() {
-  return useContext(InviteContext);
-}
-*/}
-
 import { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 

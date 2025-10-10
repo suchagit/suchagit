@@ -81,6 +81,7 @@ export default function Home() {
     //);
     */}
 
+{/*    
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import heroImg from "../assets/SoftTulipsCropped4.png";
@@ -155,32 +156,155 @@ export default function Home() {
                 className="relative h-screen bg-cover bg-center flex items-center justify-center"
                 style={{ backgroundImage: `url(${heroImg})` }}
             >
+                {/*
                 <div className="bg-peach bg-opacity-80 p-8 rounded-xl text-center shadow-lg animate-fade-in mx-4 sm:mx-8">
-                    <h1 className="text-6xl font-bold mb-4 tracking-wide text-center">
+                    {/*<h1 className="text-6xl font-bold mb-4 tracking-wide text-center">
                         <span className="block sm:inline">{groomName}</span>{" "}
                         <span className="block sm:inline">&</span>{" "}
                         <span className="block sm:inline">{brideName}</span>
                     </h1>
-                    <p className="text-2xl text-center flex flex-wrap justify-center items-center">
-                        {/* Leading heart on wide screens */}
+                    */}
+{/*                    
+                    <h1 className="text-6xl font-bold mb-4 tracking-wide text-center">
+                        {invite.name}
+                    </h1>
+                    {/*<p className="text-2xl text-center flex flex-wrap justify-center items-center">
                         <span className="hidden sm:inline mr-1">💕</span>
-                        {/* Main text */}
-                        <span className="break-words">We can’t wait to celebrate with you</span>
-                        {/* Trailing hearts */}
+                        <span className="break-words">we can't wait to celebrate with you</span>
                         <span className="ml-1 mt-1 sm:mt-0">
-                            {/* Wide screen: single trailing heart, narrow: both hearts */}
                             <span className="hidden sm:inline">💕</span>
                             <span className="sm:hidden">💕 💕</span>
                         </span>
-                    </p>
+                    </p>*/}
+{/*                    
 
                     {/*<p className="mt-4 text-lg">Explore your invitation, RSVP, and more</p>*/}
+{/*                    
                     <div className="flex flex-col items-center gap-4 mt-6">
                         <NavButton to="/invite">Open Your Invitation</NavButton>
                     </div>
                 </div>
+                */}
+{/*                
             </div>
         </div>
     );
 }
+*/}
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import heroImg from "../assets/SoftTulipsCropped4.png";
+import NavButton from "../components/NavButton";
+import { useInvite } from "../context/InviteContext";
+import { supabase } from "../supabaseClient";
+import envelopeFront from "../assets/EnvelopeFront.png";
+import envelopeBack from "../assets/EnvelopeBack.png";
+import "../Home.css";
 
+export default function Home() {
+  const groomName = import.meta.env.VITE_NAME_GROOM;
+  const brideName = import.meta.env.VITE_NAME_BRIDE;
+
+  const { invite, saveInvite, unauthorized, setUnauthorized } = useInvite();
+  const { inviteId: urlInviteId } = useParams();
+  const navigate = useNavigate();
+
+  const [flipped, setFlipped] = useState(false);
+
+  useEffect(() => {
+    async function validateInvite(id) {
+      const { data, error } = await supabase
+        .from("invites")
+        .select("*")
+        .eq("token", id)
+        .single();
+      if (error || !data) return null;
+      return data;
+    }
+
+    async function init() {
+      if (invite || unauthorized) return;
+
+      const idToUse = urlInviteId || localStorage.getItem("inviteId");
+      if (!idToUse) {
+        setUnauthorized(true);
+        return;
+      }
+
+      const inviteData = await validateInvite(idToUse);
+      if (!inviteData) {
+        setUnauthorized(true);
+        return;
+      }
+
+      saveInvite(inviteData);
+    }
+
+    init();
+  }, [urlInviteId, invite, unauthorized, saveInvite, setUnauthorized]);
+
+  // Loading / Unauthorized / Ready states
+  if (unauthorized)
+    return (
+      <div className="min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center justify-center">
+        <div className="max-w-xl w-full bg-peach rounded-lg p-6 shadow-lg text-center">
+          <h2 className="text-2xl font-heading mb-4">Unauthorized access</h2>
+        </div>
+      </div>
+    );
+
+  if (!invite)
+    return (
+      <div className="min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center justify-center">
+        <div className="max-w-xl w-full bg-peach rounded-lg p-6 shadow-lg text-center">
+          <h2 className="text-2xl font-heading mb-4">Loading invitation...</h2>
+        </div>
+      </div>
+    );
+
+  return (
+    <div className="text-brown">
+      <div
+        className="relative h-screen bg-cover bg-center flex items-center justify-center"
+        style={{ backgroundImage: `url(${heroImg})` }}
+      >
+        {/* Envelope Flip */}
+        <div
+          className="envelope-container"
+          onClick={() => setFlipped(!flipped)}
+        >
+          <div className={`envelope-inner ${flipped ? "flipped" : ""}`}>
+            {/* Front */}
+            <div
+              className="envelope-front"
+              style={{
+                backgroundImage: `url(${envelopeFront})`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+              }}
+            >
+              <h1 className="envelope-text">{invite.name}</h1>
+            </div>
+
+            {/* Back */}
+            <div
+              className="envelope-back"
+              style={{
+                backgroundImage: `url(${envelopeBack})`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                transform: "rotateY(180deg)",
+              }}
+            >
+              <NavButton to="/invite" className="envelope-text">
+                Open Your Invitation
+              </NavButton>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

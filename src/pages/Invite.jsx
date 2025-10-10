@@ -78,7 +78,7 @@ const handleRsvp = async (status) => {
   ></div>
 
         {/* Main container */}
-        <div className="relative max-w-xl w-full bg-peach rounded-lg shadow-lg text-center mt-6 mb-6 overflow-hidden pt-[70px] pb-[110px]">
+        <div className="relative max-w-xl w-full bg-peach rounded-lg shadow-lg text-center mt-6 mb-6 overflow-hidden pt-[70px]">
 
             {/* Top frame */}
             <img
@@ -120,17 +120,18 @@ const handleRsvp = async (status) => {
                     <img
                     src="/assets/RoseTulipCluster.png"//"/assets/RedCluster.png"
                     alt="Wedding Icon"
-                    className="h-60 md:h-80 w-auto mx-auto object-contain opacity-80 drop-shadow-lg"
+                    //className="h-60 md:h-80 w-auto mx-auto object-contain opacity-80 drop-shadow-lg"
+                    className="h-60 md:h-80 w-auto mx-auto object-contain opacity-80 drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)]"
                     />
 
                     {/* Overlayed text */}
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                         <h1
-                        className="
-                            text-5xl md:text-5xl font-heading text-white drop-shadow-md 
-                            flex flex-col md:flex-row items-center justify-center 
-                            leading-tight md:leading-normal
-                        "
+                            className="
+                                text-5xl md:text-5xl font-heading text-white drop-shadow-md 
+                                flex flex-col md:flex-row items-center justify-center 
+                                leading-tight md:leading-normal
+                            "
                         >
                             <span className="md:mr-2">{groomName}</span>
                             <span className="md:mx-2">&</span>
@@ -141,25 +142,6 @@ const handleRsvp = async (status) => {
                         </h2>
                     </div>
                 </div>
-
-                {/* Invite details */}
-                {/*
-                <div className="mb-4 text-darkbrown font-serif w-full">
-                    <div className="w-full bg-lightbrown p-4 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 bg-opacity-60">
-                    <p className="text-lg mb-2 italic tracking-wide">
-                        <span className="font-semibold">Date & Time:</span> Nth November 2025 at 10:30AM
-                    </p>
-                    <p className="text-lg mb-2 italic tracking-wide">
-                        <span className="font-semibold">Address:</span> Somewhere or Other
-                    </p>
-                    {invite.reception && (
-                        <p className="text-lg mb-2 italic tracking-wide">
-                        Join us for a casual reception with grazing tables and drinks at the same location at 6:00PM
-                        </p>
-                    )}
-                    </div>
-                </div>
-                */}
                 {/* Invite details */}
                 <div className="mb-4 text-darkbrown font-serif w-full max-w-[85%] mx-auto">
                     <div className="w-full bg-lightbrown p-4 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 bg-opacity-60">
@@ -203,11 +185,13 @@ const handleRsvp = async (status) => {
                 </div>
 
             </div> {/* End content */}
-            <img
-        src="/assets/CarriageOnly.png"
-        alt="Overlay Carriage"
-        className="absolute bottom-[28px] pt-10 left-1/2 transform -translate-x-1/2 h-32 md:h-40 w-auto z-15"
-    />
+            <div className="flex justify-center mb-4">
+                <img
+                    src="/assets/CarriageOnly.png"
+                    alt="Overlay Carriage"
+                    className="h-32 md:h-40 w-auto opacity-90 pb-3 drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)]"
+                />
+            </div>
         </div> {/* End main container */}
     </div> // End page container
 );
