@@ -200,6 +200,7 @@ import { supabase } from "../supabaseClient";
 import envelopeFront from "../assets/EnvelopeFront.png";
 import envelopeBack from "../assets/EnvelopeBack.png";
 import "../Home.css";
+import logoImg from "../assets/Logo.png"; // adjust path
 
 export default function Home() {
   const groomName = import.meta.env.VITE_NAME_GROOM;
@@ -210,6 +211,8 @@ export default function Home() {
   const navigate = useNavigate();
 
   const [flipped, setFlipped] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
 
   useEffect(() => {
     async function validateInvite(id) {
@@ -270,36 +273,93 @@ export default function Home() {
       >
         {/* Envelope Flip */}
         <div
-          className="envelope-container"
+          style={{
+            width: "80%",
+            maxWidth: "500px",
+            aspectRatio: "1188 / 978",
+            perspective: "1000px",
+            cursor: "pointer",
+            position: "relative",
+          }}
           onClick={() => setFlipped(!flipped)}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
         >
-          <div className={`envelope-inner ${flipped ? "flipped" : ""}`}>
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              transformStyle: "preserve-3d",
+              transition: "transform 0.8s ease-in-out",
+              transform: flipped || hovered ? "rotateY(180deg)" : "none",
+              position: "relative",
+            }}
+          >
             {/* Front */}
             <div
-              className="envelope-front"
               style={{
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                backfaceVisibility: "hidden",
                 backgroundImage: `url(${envelopeFront})`,
-                backgroundSize: "contain",
-                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
                 backgroundPosition: "center",
+                borderRadius: "1rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              <h1 className="envelope-text">{invite.name}</h1>
+              <h1
+                style={{
+                  color: "#8b3f05",
+                  fontFamily: "Playfair Display, serif",
+                  fontSize: "3rem",
+                  fontWeight: 600,
+                  textAlign: "center",
+                  zIndex: 2,
+                  pointerEvents: "none",
+                }}
+              >
+                {invite.name}
+              </h1>
+<img
+  src={logoImg}
+  alt="Logo"
+  style={{
+    position: "absolute",
+    top: "12%",       // relative to envelope height
+    right: "4%",     // relative to envelope width
+    width: "25%",    // relative to envelope width
+    height: "auto",
+    zIndex: 3,
+  }}
+/>
             </div>
 
             {/* Back */}
             <div
-              className="envelope-back"
               style={{
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                backfaceVisibility: "hidden",
                 backgroundImage: `url(${envelopeBack})`,
-                backgroundSize: "contain",
-                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
                 backgroundPosition: "center",
                 transform: "rotateY(180deg)",
+                borderRadius: "1rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              <NavButton to="/invite" className="envelope-text">
-                Open Your Invitation
+              <NavButton
+                to="/invite"
+                style={{ zIndex: 2 }}
+              >
+                Open
               </NavButton>
             </div>
           </div>

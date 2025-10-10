@@ -73,9 +73,10 @@ const handleRsvp = async (status) => {
     return (
         <div className="relative min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center px-4 sm:px-0">
 <div
-    className="absolute inset-0 w-full h-full bg-center bg-cover opacity-50 pointer-events-none"
-    style={{ backgroundImage: `url(${heroImg})` }}
-  ></div>
+  className="fixed inset-0 w-full h-full bg-center bg-cover bg-fixed opacity-50 pointer-events-none"
+  style={{ backgroundImage: `url(${heroImg})` }}
+></div>
+
 
         {/* Main container */}
         <div className="relative max-w-xl w-full bg-peach rounded-lg shadow-lg text-center mt-6 mb-6 overflow-hidden pt-[70px]">
