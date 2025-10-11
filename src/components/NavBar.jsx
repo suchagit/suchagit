@@ -138,6 +138,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInvite } from "../context/InviteContext";
+import logo from "../assets/LogoLeaf.png";
 
 export default function NavBar() {
   const { invite, unauthorized } = useInvite();
@@ -202,7 +203,7 @@ export default function NavBar() {
   >
     {/* Rotating Logo Image (slow, 90 degrees) */}
     <motion.img
-      src="/assets/LogoLeaf.png"
+      src={logo}
       alt="Logo"
       animate={{ rotate: isOpen ? 120 : 0 }} // ✅ rotate 90° when open
       transition={{ type: "spring", stiffness: 100, damping: 20, duration: 0.8 }} // ✅ slower rotation
