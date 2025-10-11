@@ -266,7 +266,7 @@ export default function Home() {
       </div>
     );
 
-  return (
+ return (
   <div className="text-brown">
     <div
       className="relative h-screen bg-cover bg-center flex items-center justify-center"
@@ -312,7 +312,7 @@ export default function Home() {
               alignItems: "center",
             }}
           >
-            {/* Guest Name */}
+            {/* Invite Name */}
             <h1
               style={{
                 color: "#8b3f05",
@@ -327,7 +327,7 @@ export default function Home() {
               {invite.name}
             </h1>
 
-            {/* Logo + Text Overlay */}
+            {/* Logo + Text overlay (only show if not flipped) */}
             {!flipped && (
               <div
                 style={{
@@ -338,13 +338,14 @@ export default function Home() {
                   height: "auto",
                   zIndex: 3,
                 }}
-                className="relative inline-flex items-center justify-center pt-4 pointer-events-none"
+                className="relative inline-flex items-center justify-center pt-4"
               >
                 <img
                   src={logoImg}
                   alt="Logo"
                   className="h-12 w-auto object-contain drop-shadow-xl select-none block"
                 />
+
                 <span
                   className="absolute flex items-center justify-center
                              text-darkbrown text-lg sm:text-xl md:text-2xl
