@@ -307,71 +307,57 @@ export default function Home() {
               backgroundSize: "cover",
               backgroundPosition: "center",
               borderRadius: "1rem",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            {/* Front content wrapper */}
-            <div
-              style={{
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-                top: 0,
-                left: 0,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                backfaceVisibility: "hidden", // crucial for Safari
-              }}
-            >
-              {/* Name */}
-              <h1
-                style={{
-                  color: "#8b3f05",
-                  fontFamily: "Playfair Display, serif",
-                  fontSize: "3rem",
-                  fontWeight: 600,
-                  textAlign: "center",
-                  zIndex: 2,
-                  pointerEvents: "none",
-                  backfaceVisibility: "hidden",
-                  margin: 0,
-                }}
-              >
-                {invite.name}
-              </h1>
-
-              {/* Logo + text overlay */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: "12%",
-                  right: "4%",
-                  width: "25%",
-                  height: "auto",
-                  zIndex: 3,
-                  backfaceVisibility: "hidden",
-                }}
-                className="relative inline-flex items-center justify-center pt-4"
-              >
-                <img
-                  src={logoImg}
-                  alt="Logo"
-                  className="h-12 w-auto object-contain drop-shadow-xl select-none block"
-                  style={{ backfaceVisibility: "hidden" }}
-                />
-
-                <span
-                  className="absolute flex items-center justify-center
-                             text-darkbrown text-lg sm:text-xl md:text-2xl
-                             font-wedding font-bold tracking-wide
-                             pointer-events-none select-none"
-                  style={{ backfaceVisibility: "hidden" }}
+            {/* Only render content if NOT flipped */}
+            {!flipped && (
+              <>
+                <h1
+                  style={{
+                    color: "#8b3f05",
+                    fontFamily: "Playfair Display, serif",
+                    fontSize: "3rem",
+                    fontWeight: 600,
+                    textAlign: "center",
+                    zIndex: 2,
+                    pointerEvents: "none",
+                    margin: 0,
+                  }}
                 >
-                  B&R
-                </span>
-              </div>
-            </div>
+                  {invite.name}
+                </h1>
+
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "12%",
+                    right: "4%",
+                    width: "25%",
+                    height: "auto",
+                    zIndex: 3,
+                  }}
+                  className="relative inline-flex items-center justify-center pt-4"
+                >
+                  <img
+                    src={logoImg}
+                    alt="Logo"
+                    className="h-12 w-auto object-contain drop-shadow-xl select-none block"
+                  />
+
+                  <span
+                    className="absolute flex items-center justify-center
+                               text-darkbrown text-lg sm:text-xl md:text-2xl
+                               font-wedding font-bold tracking-wide
+                               pointer-events-none select-none"
+                  >
+                    B&R
+                  </span>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Back */}
