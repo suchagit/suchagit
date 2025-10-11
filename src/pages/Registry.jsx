@@ -197,7 +197,7 @@ export default function Registry() {
     const isMine = item.reservations.some(
       (r) => r.reserved_by === invite.token
     );
-    const isUnlimited = item.unlimited;
+    //const isUnlimited = item.unlimited;
     const isFull = item.reservationCount >= item.limit; //&& !isUnlimited;
 
     if (!isMine && isFull) {
@@ -353,7 +353,7 @@ export default function Registry() {
                     {isMine
                       ? "Release me"
                       : disableButton
-                      ? "Fully reserved"
+                      ? "Already picked"
                       : "I'm getting this"}
                   </button>
 
