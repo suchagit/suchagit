@@ -203,6 +203,11 @@ import envelopeBack from "../assets/EnvelopeBack.png";
 import "../Home.css";
 import logoImg from "../assets/LogoLeaf.png"; // adjust path
 
+function isSafari() {
+  const ua = navigator.userAgent;
+  return /Safari/.test(ua) && !/Chrome/.test(ua);
+}
+
 export default function Home() {
   const groomName = import.meta.env.VITE_NAME_GROOM;
   const brideName = import.meta.env.VITE_NAME_BRIDE;
@@ -213,6 +218,8 @@ export default function Home() {
 
   const [flipped, setFlipped] = useState(false);
   const [hovered, setHovered] = useState(false);
+
+  const safari = isSafari();
 
 
   useEffect(() => {
@@ -265,127 +272,128 @@ export default function Home() {
         </div>
       </div>
     );
-
- return (
-  <div className="text-brown">
-    <div
-      className="relative h-screen bg-cover bg-center flex items-center justify-center"
-      style={{ backgroundImage: `url(${heroImg})` }}
-    >
-      {/* Envelope Flip */}
+return (
+    <div className="text-brown">
       <div
-        style={{
-          width: "80%",
-          maxWidth: "500px",
-          aspectRatio: "1188 / 978",
-          perspective: "1000px",
-          cursor: "pointer",
-          position: "relative",
-        }}
-        onClick={() => setFlipped(!flipped)}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        className="relative h-screen bg-cover bg-center flex items-center justify-center"
+        style={{ backgroundImage: `url(${heroImg})` }}
       >
+        {/* Envelope */}
         <div
           style={{
-            width: "100%",
-            height: "100%",
-            transformStyle: "preserve-3d",
-            transition: "transform 0.8s ease-in-out",
-            transform: flipped || hovered ? "rotateY(180deg)" : "none",
+            width: "80%",
+            maxWidth: "500px",
+            aspectRatio: "1188 / 978",
+            perspective: safari ? "none" : "1000px", // no perspective on Safari
+            cursor: "pointer",
             position: "relative",
           }}
+          onClick={() => {
+            if (safari) {
+              navigate("/invite"); // Just navigate on Safari
+            } else {
+              setFlipped(!flipped);
+            }
+          }}
+          onMouseEnter={() => !safari && setHovered(true)}
+          onMouseLeave={() => !safari && setHovered(false)}
         >
-          {/* Front */}
           <div
             style={{
               width: "100%",
               height: "100%",
-              position: "absolute",
-              backfaceVisibility: "hidden",
-              backgroundImage: `url(${envelopeFront})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              borderRadius: "1rem",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              transformStyle: safari ? "flat" : "preserve-3d",
+              transition: "transform 0.8s ease-in-out",
+              transform: safari ? "none" : flipped || hovered ? "rotateY(180deg)" : "none",
+              position: "relative",
             }}
           >
-            {/* Only render content if NOT flipped */}
-            {!flipped && (
-              <>
-                <h1
-                  style={{
-                    color: "#8b3f05",
-                    fontFamily: "Playfair Display, serif",
-                    fontSize: "3rem",
-                    fontWeight: 600,
-                    textAlign: "center",
-                    zIndex: 2,
-                    pointerEvents: "none",
-                    margin: 0,
-                  }}
-                >
-                  {invite.name}
-                </h1>
+            {/* Front */}
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                backfaceVisibility: "hidden",
+                backgroundImage: `url(${envelopeFront})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                borderRadius: "1rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <h1
+                style={{
+                  color: "#8b3f05",
+                  fontFamily: "Playfair Display, serif",
+                  fontSize: "3rem",
+                  fontWeight: 600,
+                  textAlign: "center",
+                  zIndex: 2,
+                  pointerEvents: "none",
+                  margin: 0,
+                }}
+              >
+                {invite.name}
+              </h1>
 
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "12%",
-                    right: "4%",
-                    width: "25%",
-                    height: "auto",
-                    zIndex: 3,
-                  }}
-                  className="relative inline-flex items-center justify-center pt-4"
-                >
-                  <img
-                    src={logoImg}
-                    alt="Logo"
-                    className="h-12 w-auto object-contain drop-shadow-xl select-none block"
-                  />
+              <div
+                style={{
+                  position: "absolute",
+                  top: "12%",
+                  right: "4%",
+                  width: "25%",
+                  height: "auto",
+                  zIndex: 3,
+                }}
+                className="relative inline-flex items-center justify-center pt-4"
+              >
+                <img
+                  src={logoImg}
+                  alt="Logo"
+                  className="h-12 w-auto object-contain drop-shadow-xl select-none block"
+                />
 
-                  <span
-                    className="absolute flex items-center justify-center
-                               text-darkbrown text-lg sm:text-xl md:text-2xl
-                               font-wedding font-bold tracking-wide
-                               pointer-events-none select-none"
-                  >
-                    B&R
-                  </span>
-                </div>
-              </>
+                <span
+                  className="absolute flex items-center justify-center
+                             text-darkbrown text-lg sm:text-xl md:text-2xl
+                             font-wedding font-bold tracking-wide
+                             pointer-events-none select-none"
+                >
+                  B&R
+                </span>
+              </div>
+            </div>
+
+            {/* Back */}
+            {!safari && (
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  position: "absolute",
+                  backfaceVisibility: "hidden",
+                  backgroundImage: `url(${envelopeBack})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  transform: "rotateY(180deg)",
+                  borderRadius: "1rem",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <NavButton to="/invite" style={{ zIndex: 2 }}>
+                  Open
+                </NavButton>
+              </div>
             )}
-          </div>
-
-          {/* Back */}
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              position: "absolute",
-              backfaceVisibility: "hidden",
-              backgroundImage: `url(${envelopeBack})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              transform: "rotateY(180deg)",
-              borderRadius: "1rem",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <NavButton to="/invite" style={{ zIndex: 2 }}>
-              Open
-            </NavButton>
           </div>
         </div>
       </div>
     </div>
-  </div>
-);
-
+  );
 
 }
