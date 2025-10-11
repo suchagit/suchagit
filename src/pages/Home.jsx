@@ -191,6 +191,7 @@ export default function Home() {
     );
 }
 */}
+
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import heroImg from "../assets/SoftTulipsCropped4.png";
@@ -266,121 +267,121 @@ export default function Home() {
     );
 
   return (
-    <div className="text-brown">
+  <div className="text-brown">
+    <div
+      className="relative h-screen bg-cover bg-center flex items-center justify-center"
+      style={{ backgroundImage: `url(${heroImg})` }}
+    >
+      {/* Envelope Flip */}
       <div
-        className="relative h-screen bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: `url(${heroImg})` }}
+        style={{
+          width: "80%",
+          maxWidth: "500px",
+          aspectRatio: "1188 / 978",
+          perspective: "1000px",
+          cursor: "pointer",
+          position: "relative",
+        }}
+        onClick={() => setFlipped(!flipped)}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
-        {/* Envelope Flip */}
         <div
           style={{
-            width: "80%",
-            maxWidth: "500px",
-            aspectRatio: "1188 / 978",
-            perspective: "1000px",
-            cursor: "pointer",
+            width: "100%",
+            height: "100%",
+            transformStyle: "preserve-3d",
+            transition: "transform 0.8s ease-in-out",
+            transform: flipped || hovered ? "rotateY(180deg)" : "none",
             position: "relative",
           }}
-          onClick={() => setFlipped(!flipped)}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
         >
+          {/* Front */}
           <div
             style={{
               width: "100%",
               height: "100%",
-              transformStyle: "preserve-3d",
-              transition: "transform 0.8s ease-in-out",
-              transform: flipped || hovered ? "rotateY(180deg)" : "none",
-              position: "relative",
+              position: "absolute",
+              backfaceVisibility: "hidden",
+              backgroundImage: `url(${envelopeFront})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              borderRadius: "1rem",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            {/* Front */}
-            <div
+            {/* Guest Name */}
+            <h1
               style={{
-                width: "100%",
-                height: "100%",
-                position: "absolute",
-                backfaceVisibility: "hidden",
-                backgroundImage: `url(${envelopeFront})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                borderRadius: "1rem",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                color: "#8b3f05",
+                fontFamily: "Playfair Display, serif",
+                fontSize: "3rem",
+                fontWeight: 600,
+                textAlign: "center",
+                zIndex: 2,
+                pointerEvents: "none",
               }}
             >
-              <h1
+              {invite.name}
+            </h1>
+
+            {/* Logo + Text Overlay */}
+            {!flipped && (
+              <div
                 style={{
-                  color: "#8b3f05",
-                  fontFamily: "Playfair Display, serif",
-                  fontSize: "3rem",
-                  fontWeight: 600,
-                  textAlign: "center",
-                  zIndex: 2,
-                  pointerEvents: "none",
+                  position: "absolute",
+                  top: "12%",
+                  right: "4%",
+                  width: "25%",
+                  height: "auto",
+                  zIndex: 3,
                 }}
+                className="relative inline-flex items-center justify-center pt-4 pointer-events-none"
               >
-                {invite.name}
-              </h1>
-<div
-  style={{
-    position: "absolute",
-    top: "12%",
-    right: "4%",
-    width: "25%",
-    height: "auto",
-    zIndex: 3,
-  }}
-  className="relative inline-flex items-center justify-center pt-4"
->
-  <img
-    src={logoImg}
-    alt="Logo"
-    className="h-12 w-auto object-contain drop-shadow-xl select-none block"
-  />
+                <img
+                  src={logoImg}
+                  alt="Logo"
+                  className="h-12 w-auto object-contain drop-shadow-xl select-none block"
+                />
+                <span
+                  className="absolute flex items-center justify-center
+                             text-darkbrown text-lg sm:text-xl md:text-2xl
+                             font-wedding font-bold tracking-wide
+                             pointer-events-none select-none"
+                >
+                  B&R
+                </span>
+              </div>
+            )}
+          </div>
 
-  <span
-    className="absolute flex items-center justify-center 
-               text-darkbrown text-lg sm:text-xl md:text-2xl 
-               font-wedding font-bold tracking-wide
-               pointer-events-none select-none"
-  >
-    B&R
-  </span>
-</div>
-
-
-            </div>
-
-            {/* Back */}
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                position: "absolute",
-                backfaceVisibility: "hidden",
-                backgroundImage: `url(${envelopeBack})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                transform: "rotateY(180deg)",
-                borderRadius: "1rem",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <NavButton
-                to="/invite"
-                style={{ zIndex: 2 }}
-              >
-                Open
-              </NavButton>
-            </div>
+          {/* Back */}
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+              backfaceVisibility: "hidden",
+              backgroundImage: `url(${envelopeBack})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              transform: "rotateY(180deg)",
+              borderRadius: "1rem",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <NavButton to="/invite" style={{ zIndex: 2 }}>
+              Open
+            </NavButton>
           </div>
         </div>
       </div>
     </div>
-  );
+  </div>
+);
+
 }
