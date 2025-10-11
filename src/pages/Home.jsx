@@ -307,28 +307,41 @@ export default function Home() {
               backgroundSize: "cover",
               backgroundPosition: "center",
               borderRadius: "1rem",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
             }}
           >
-            {/* Invite Name */}
-            <h1
+            {/* Front content wrapper */}
+            <div
               style={{
-                color: "#8b3f05",
-                fontFamily: "Playfair Display, serif",
-                fontSize: "3rem",
-                fontWeight: 600,
-                textAlign: "center",
-                zIndex: 2,
-                pointerEvents: "none",
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                top: 0,
+                left: 0,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                backfaceVisibility: "hidden", // crucial for Safari
               }}
             >
-              {invite.name}
-            </h1>
+              {/* Name */}
+              <h1
+                style={{
+                  color: "#8b3f05",
+                  fontFamily: "Playfair Display, serif",
+                  fontSize: "3rem",
+                  fontWeight: 600,
+                  textAlign: "center",
+                  zIndex: 2,
+                  pointerEvents: "none",
+                  backfaceVisibility: "hidden",
+                  margin: 0,
+                }}
+              >
+                {invite.name}
+              </h1>
 
-            {/* Logo + Text overlay (only show if not flipped) */}
-            {!flipped && (
+              {/* Logo + text overlay */}
               <div
                 style={{
                   position: "absolute",
@@ -337,6 +350,7 @@ export default function Home() {
                   width: "25%",
                   height: "auto",
                   zIndex: 3,
+                  backfaceVisibility: "hidden",
                 }}
                 className="relative inline-flex items-center justify-center pt-4"
               >
@@ -344,6 +358,7 @@ export default function Home() {
                   src={logoImg}
                   alt="Logo"
                   className="h-12 w-auto object-contain drop-shadow-xl select-none block"
+                  style={{ backfaceVisibility: "hidden" }}
                 />
 
                 <span
@@ -351,11 +366,12 @@ export default function Home() {
                              text-darkbrown text-lg sm:text-xl md:text-2xl
                              font-wedding font-bold tracking-wide
                              pointer-events-none select-none"
+                  style={{ backfaceVisibility: "hidden" }}
                 >
                   B&R
                 </span>
               </div>
-            )}
+            </div>
           </div>
 
           {/* Back */}
@@ -384,5 +400,6 @@ export default function Home() {
     </div>
   </div>
 );
+
 
 }
