@@ -133,7 +133,8 @@ export default function NavBar() {
   );
 }
 */}
-import { useState } from "react";
+
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInvite } from "../context/InviteContext";
@@ -141,8 +142,28 @@ import { useInvite } from "../context/InviteContext";
 export default function NavBar() {
   const { invite, unauthorized } = useInvite();
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
+  const buttonRef = useRef(null);
+  const logoRef = useRef(null);
 
-  // Hide NavBar if user is unauthorized or invite hasn't loaded
+  // ✅ Close menu when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target) &&
+        logoRef.current &&
+        !logoRef.current.contains(event.target)
+      ) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   if (unauthorized || !invite) return null;
 
   const links = [
@@ -162,25 +183,42 @@ export default function NavBar() {
     }),
   };
 
+  // ✅ Toggle logo click (mobile only)
+  const handleLogoClick = () => {
+    if (window.innerWidth < 640) setIsOpen((prev) => !prev);
+  };
+
   return (
     <nav className="bg-peach text-brown shadow-md sticky top-0 z-50">
       <div className="container mx-auto flex justify-between items-center py-4 px-6 relative">
-        {/* Logo */}
-        <div className="flex-1 flex justify-center md:justify-start">
-          {/*<img
-            src="/assets/Logo.png"
-            alt="Logo"
-            className="h-12 w-auto object-contain ml-5 md:ml-4 -my-2"
-          />*/}
-<img
-  src="/assets/Logo.png"
-  alt="Logo"
-  className="h-12 w-auto object-contain ml-5 md:ml-4 -my-2 drop-shadow-xl transition-transform duration-300 hover:scale-110"
-/>
 
+        {/* Logo (rotates when menu opens) */}
+        <div className="flex-1 flex justify-center md:justify-start relative">
+  {/* Container for click and scaling */}
+  <motion.div
+    ref={logoRef}
+    onClick={handleLogoClick}
+    className="relative inline-block cursor-pointer hover:scale-110 transition-transform duration-300"
+  >
+    {/* Rotating Logo Image (slow, 90 degrees) */}
+    <motion.img
+      src="/assets/LogoLeaf.png"
+      alt="Logo"
+      animate={{ rotate: isOpen ? 120 : 0 }} // ✅ rotate 90° when open
+      transition={{ type: "spring", stiffness: 100, damping: 20, duration: 0.8 }} // ✅ slower rotation
+      className="h-12 w-auto object-contain ml-6 md:ml-4 -my-2 drop-shadow-xl select-none"
+    />
 
+    {/* Overlay Text (upright, centered) */}
+    <span className="absolute inset-0 flex items-center justify-center 
+                 text-darkbrown text-lg sm:text-xl md:text-2xl 
+                 font-wedding tracking-wide
+                 pointer-events-none select-none ml-6 font-bold">
+      B&R
+    </span>
+  </motion.div>
+</div>
 
-        </div>
 
         {/* Desktop Links */}
         <div className="hidden sm:flex space-x-6">
@@ -197,6 +235,7 @@ export default function NavBar() {
 
         {/* Mobile Menu Toggle */}
         <motion.button
+          ref={buttonRef}
           className="sm:hidden text-2xl z-50 focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
           animate={{ rotate: isOpen ? 90 : 0 }}
@@ -211,6 +250,7 @@ export default function NavBar() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
+              ref={menuRef}
               className="sm:hidden absolute top-full left-0 w-full bg-peach flex flex-col items-center space-y-4 py-4 shadow-md z-40"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}

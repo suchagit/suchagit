@@ -16,6 +16,7 @@ module.exports = {
       fontFamily: {
         heading: ["Playfair Display", "serif"],
         body: ["Inter", "sans-serif"],
+        wedding: ["Great Vibes", 'cursive'],
       },
       backgroundImage: {
         'invitation': "url('/assets/FloralClusterFrame.png')",//'invitation': "url('/assets/FloralFrame.png')",

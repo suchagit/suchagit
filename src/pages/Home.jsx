@@ -200,7 +200,7 @@ import { supabase } from "../supabaseClient";
 import envelopeFront from "../assets/EnvelopeFront.png";
 import envelopeBack from "../assets/EnvelopeBack.png";
 import "../Home.css";
-import logoImg from "../assets/Logo.png"; // adjust path
+import logoImg from "../assets/LogoLeaf.png"; // adjust path
 
 export default function Home() {
   const groomName = import.meta.env.VITE_NAME_GROOM;
@@ -324,18 +324,34 @@ export default function Home() {
               >
                 {invite.name}
               </h1>
-<img
-  src={logoImg}
-  alt="Logo"
+<div
   style={{
     position: "absolute",
-    top: "12%",       // relative to envelope height
-    right: "4%",     // relative to envelope width
-    width: "25%",    // relative to envelope width
+    top: "12%",
+    right: "4%",
+    width: "25%",
     height: "auto",
     zIndex: 3,
   }}
-/>
+  className="relative inline-flex items-center justify-center pt-4"
+>
+  <img
+    src={logoImg}
+    alt="Logo"
+    className="h-12 w-auto object-contain drop-shadow-xl select-none block"
+  />
+
+  <span
+    className="absolute flex items-center justify-center 
+               text-darkbrown text-lg sm:text-xl md:text-2xl 
+               font-wedding font-bold tracking-wide
+               pointer-events-none select-none"
+  >
+    B&R
+  </span>
+</div>
+
+
             </div>
 
             {/* Back */}
