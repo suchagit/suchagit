@@ -172,7 +172,7 @@ export default function NavBar() {
     { label: "Invitation", to: "/invite" },
     { label: "Gifts", to: "/registry" },
     { label: "Gallery", to: "/gallery" },
-    { label: "Location", to: "/location" },
+    { label: "Venue", to: "/venue" },
   ];
 
   const linkVariants = {

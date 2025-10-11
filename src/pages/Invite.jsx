@@ -19,6 +19,10 @@ export default function InvitePage() {
   const receptionLocation = import.meta.env.VITE_RECEPTION_LOCATION;
   const receptionTime = import.meta.env.VITE_RECEPTION_TIME;
 
+const handleClickVenue = () => {
+    // Navigate to any route you want
+    navigate("/venue"); // example
+  };
 
 // Only set once on initial invite load
 useEffect(() => {
@@ -72,10 +76,10 @@ const handleRsvp = async (status) => {
 
     return (
         <div className="relative min-h-screen bg-olive text-darkbrown font-body flex flex-col items-center px-4 sm:px-0">
-            <div
-            className="fixed inset-0 w-full h-full bg-center bg-cover bg-fixed opacity-50 pointer-events-none"
-            style={{ backgroundImage: `url(${heroImg})` }}
-            ></div>
+        <div
+        className="fixed inset-0 w-full h-full bg-center bg-cover bg-fixed opacity-50 pointer-events-none"
+        style={{ backgroundImage: `url(${heroImg})` }}
+        ></div>
 
 
         {/* Main container */}
@@ -145,7 +149,10 @@ const handleRsvp = async (status) => {
                 </div>
                 {/* Invite details */}
                 <div className="mb-4 text-darkbrown font-serif w-full max-w-[85%] mx-auto">
-                    <div className="w-full bg-lightbrown p-4 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 bg-opacity-60">
+                    <div 
+                        className="w-full bg-lightbrown p-4 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 bg-opacity-60 cursor-pointer"
+                        onClick={handleClickVenue}
+                    >
                         <p className="text-lg mb-2 italic tracking-wide">
                         <span className="font-semibold">Date & Time:</span> {weddingDate} at {ceremonyTime}
                         </p>

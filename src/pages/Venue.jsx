@@ -32,7 +32,7 @@ console.log("INVITE: ", invite);
   return (
     <div className="min-h-screen bg-[#979f8a] p-6 text-white relative">
         
-      <h1 className="text-4xl font-heading font-bold mb-6 text-center">Location</h1>
+      <h1 className="text-4xl font-heading font-bold mb-6 text-center">Venue</h1>
 
       <div className="max-w-4xl mx-auto bg-peach p-6 rounded-lg shadow-md mb-6">
         {/* Venue Location */}
