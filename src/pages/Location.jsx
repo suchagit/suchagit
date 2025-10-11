@@ -1,7 +1,7 @@
 import heroImg from "../assets/SoftTulipsCropped4.png"//"../assets/br-hero.jpg";
 import { useInvite } from "../context/InviteContext";
 
-export default function Directions() {
+export default function Location() {
   const ceremonyLocation = import.meta.env.VITE_CEREMONY_LOCATION;
   const ceremonyAddress = import.meta.env.VITE_CEREMONY_ADDRESS;
   const ceremonyMapUrl = import.meta.env.VITE_CEREMONY_MAP;
@@ -32,7 +32,7 @@ console.log("INVITE: ", invite);
   return (
     <div className="min-h-screen bg-[#979f8a] p-6 text-white relative">
         
-      <h1 className="text-4xl font-heading font-bold mb-6 text-center">Directions</h1>
+      <h1 className="text-4xl font-heading font-bold mb-6 text-center">Location</h1>
 
       <div className="max-w-4xl mx-auto bg-peach p-6 rounded-lg shadow-md mb-6">
         {/* Venue Location */}
@@ -56,18 +56,18 @@ console.log("INVITE: ", invite);
         {/* Directions Sections */}
         <h2 className="text-xl font-semibold mb-2">Parking</h2>
         <ul className="list-disc list-inside mb-4">
-          <li>Park somewhere</li>
-          <li>Don't park on the grass</li>
+          <li>Follow the parking instructions given upon arrival</li>
+          <li>Please carpool if possible</li>
         </ul>
 
         <h2 className="text-xl font-semibold mb-2">Additional Notes</h2>
         <ul className="list-disc list-inside">
-          <li>Bus routes available</li>
+          <li>The venue is a grassy outdoor setting</li>
         </ul>
 
         {invite.reception === true && (
             <>
-                <h1 className="text-3xl font-semibold mb-4 text-center">Reception</h1>
+                <h1 className="text-3xl font-semibold mb-4 text-center pt-4">Reception</h1>
                 <h2 className="text-2xl font-semibold mb-4">{receptionLocation}</h2>
                 <p className="mb-4">{receptionAddress}</p>
                 <div className="w-full h-80 mb-4 rounded overflow-hidden shadow">
@@ -83,15 +83,10 @@ console.log("INVITE: ", invite);
                     >
                     </iframe>
                 </div>
-                <h2 className="text-xl font-semibold mb-2">Parking</h2>
-                <ul className="list-disc list-inside mb-4">
-                    <li>Park somewhere</li>
-                    <li>Don't park on the grass</li>
-                </ul>
 
                 <h2 className="text-xl font-semibold mb-2">Additional Notes</h2>
                 <ul className="list-disc list-inside">
-                    <li>Bus routes available</li>
+                    <li>The reception will be held in the Duke and Duchess Dining Room</li>
                 </ul>
             </>
         )}
