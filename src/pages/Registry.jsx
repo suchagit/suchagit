@@ -111,7 +111,7 @@ export default function Registry() {
 
       {isUnlimited === true ? (
         <div className="px-4 py-2 rounded text-white w-full mt-auto bg-lightbrown text-center">
-          No need to reserve
+          Non-reservable (Multiple OK)
         </div>
       ) : (
         <button
