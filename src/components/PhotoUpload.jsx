@@ -77,11 +77,23 @@ export default function PhotoUpload({ invite }) {
 }
 */}
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function PhotoUpload({ invite, storage }) {
   const [photoFiles, setPhotoFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
+
+  const [showElement, setShowElement] = useState(false);
+  const galleryOpenDatetime = import.meta.env.VITE_OPEN_GALLERY;
+
+  useEffect(() => {
+    const targetDate = new Date(galleryOpenDatetime); // your specific date
+    const now = new Date();
+
+    if (now >= targetDate) {
+      setShowElement(true);
+    }
+  }, []);
 
   const handleUpload = async () => {
     if (!photoFiles || photoFiles.length === 0) return;
@@ -118,7 +130,11 @@ export default function PhotoUpload({ invite, storage }) {
   };
 
   return (
-    <div className="mt-6 w-full bg-lightbrown p-4 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 animate-fadeIn bg-opacity-60">
+    <div className="mt-6 w-full bg-lightbrown p-4 rounded-lg shadow-md hover:shadow-xl bg-opacity-100">
+      {showElement === false ?
+        (<h3 className="text-lg font-semibold mt-6 mb-2">This function will be enabled on the wedding date</h3>)
+      : ( 
+        <>
       <h3 className="text-xl font-semibold mb-2">Share your memories to the gallery</h3>
       <input
         name="fileUpload"
@@ -148,6 +164,8 @@ export default function PhotoUpload({ invite, storage }) {
       >
         {uploading ? "Uploading…" : "Upload"}
       </button>
+      </>
+      )}
     </div>
   );
 }

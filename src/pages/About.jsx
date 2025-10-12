@@ -39,8 +39,7 @@ export default function About() {
 
       <div className="max-w-4xl mx-auto bg-peach p-6 rounded-lg shadow-md mb-6">
         <h1 className="text-3xl font-semibold mb-4 text-center">Our Story</h1>
-        <h2 className="text-2xl font-semibold mb-4">header</h2>
-        <p className="mb-4">This is our story</p>
+        <p className="mb-4">Coming soon...</p>
       </div>
     </div>
   );

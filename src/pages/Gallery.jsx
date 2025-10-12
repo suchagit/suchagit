@@ -203,6 +203,8 @@ export default function Gallery() {
   const [showAddPhotos, setShowAddPhotos] = useState(false);
   const { invite, unauthorized } = useInvite();
 
+  const [enlargedPhoto, setEnlargedPhoto] = useState(null);
+
   // Load photos
   useEffect(() => {
     const fetchPhotos = async () => {
@@ -313,7 +315,13 @@ const handleToggleLike = async (photoName) => {
   if (loading) return <p className="p-8 text-center">Loading gallery…</p>;
 
   return (
-    <div className="min-h-screen bg-[#979f8a] p-6 text-white relative">
+    <div className="relative min-h-screen w-full">
+    {/*<div className="min-h-screen bg-[#979f8a] p-6 text-white relative">*/}
+      {/* Fixed background image */}
+      <div
+        className="fixed inset-0 w-full h-full bg-center bg-cover bg-fixed opacity-50 pointer-events-none -z-10"
+        style={{ backgroundImage: `url(${heroImg})` }}
+      />
       <div className="mb-6 text-center">
         <h1 className="text-4xl font-bold mb-2">Photo Gallery</h1>
 
@@ -325,34 +333,62 @@ const handleToggleLike = async (photoName) => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-  {photos.length === 0 && <p>No photos uploaded yet</p>}
-  {photos.map((photo, idx) => (
-    <div key={idx} className="overflow-hidden rounded-lg shadow-md p-2 bg-white/10">
-      <div className="relative">
-        <img
-          src={photo.url}
-          alt={`Wedding Photo ${idx + 1}`}
-          className="w-full h-64 object-contain rounded-lg shadow-md bg-black
-                    transform transition hover:scale-105 hover:shadow-xl"
-        />
-        {/* Floating like button */}
-        <button
-          onClick={() => handleToggleLike(photo.name)}
-          className={`absolute top-2 right-2 flex items-center gap-1 px-3 py-1 rounded text-sm
-          ${likes[photo.name]?.likedByUser
-            ? "bg-pink-500 text-white"
-            : "bg-white/20 text-white hover:bg-white/30"
-          } backdrop-blur-sm transition`}
-        >
-          <span className="text-lg">{likes[photo.name]?.likedByUser ? "♥" : "♡"}</span>
-          <span>{likes[photo.name]?.count || 0}</span>
-        </button>
-      </div>
-    </div>
-  ))}
-</div>
 
+<div className="max-w-4xl mx-auto bg-peach p-6 rounded-lg shadow-md">
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+      {photos.length === 0 && (
+        <p className="text-center col-span-full">No photos uploaded yet</p>
+      )}
+
+      {photos.map((photo, idx) => (
+        <div
+          key={idx}
+          className="relative w-full rounded-lg overflow-hidden flex items-center justify-center"
+          style={{ aspectRatio: '4/3' }} // uniform frame
+        >
+          {/* Photo fills frame */}
+          <img
+            src={photo.url}
+            alt={`Wedding Photo ${idx + 1}`}
+            className="w-full h-full object-contain cursor-pointer transition-transform duration-300"
+            onClick={(e) => {
+              e.stopPropagation(); // prevent like button from triggering enlarge
+              setEnlargedPhoto(photo.url);
+            }}
+          />
+
+          {/* Like button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation(); // prevent enlarging
+              handleToggleLike(photo.name);
+            }}
+            className={`absolute top-1 right-1 flex items-center gap-1 px-2 py-1 rounded text-sm
+              ${likes[photo.name]?.likedByUser
+                ? "bg-pink-500 text-white"
+                : "bg-white/20 text-white hover:bg-white/30"
+              } backdrop-blur-sm transition`}
+          >
+            <span className="text-lg">{likes[photo.name]?.likedByUser ? "♥" : "♡"}</span>
+            <span>{likes[photo.name]?.count || 0}</span>
+          </button>
+        </div>
+      ))}
+    </div>
+    {enlargedPhoto && (
+  <div
+    className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 cursor-pointer"
+    onClick={() => setEnlargedPhoto(null)}
+  >
+    <img
+      src={enlargedPhoto}
+      alt="Enlarged"
+      className="max-w-[90%] max-h-[90%] object-contain shadow-2xl rounded-lg"
+      //onClick={(e) => e.stopPropagation()} // clicking photo itself doesn’t close immediately
+    />
+  </div>
+)}
+    </div>
 
       {showAddPhotos && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
