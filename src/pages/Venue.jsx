@@ -37,13 +37,14 @@ export default function Venue() {
         style={{ backgroundImage: `url(${heroImg})` }}
       />
 
-      <h1 className="text-4xl font-heading font-bold mb-6 text-center text-white drop-shadow-md">
-        Venue
-      </h1>
-
       <div className="max-w-4xl mx-auto bg-peach p-6 rounded-lg shadow-md mb-6">
         {/* Ceremony */}
-        <h1 className="text-3xl font-semibold mb-4 text-center">Ceremony</h1>
+        {invite.reception === true && (
+          <h1 className="text-3xl font-semibold mb-4 text-center">Ceremony</h1>
+        )}
+        {invite.reception !== true && (
+          <h1 className="text-3xl font-semibold mb-4 text-center">Venue</h1>
+        )}
         <h2 className="text-2xl font-semibold mb-4">{ceremonyLocation}</h2>
         <p className="mb-4">{ceremonyAddress}</p>
 
@@ -73,7 +74,12 @@ export default function Venue() {
 
         {invite.reception === true && (
           <>
-            <h1 className="text-3xl font-semibold mb-4 text-center pt-4">Reception</h1>
+          <img
+                    src="/assets/DelineatorLong.png"
+                    alt="Leafy line"
+                    className="pt-8"
+                />
+            <h1 className="text-3xl font-semibold mb-4 text-center pt-2">Reception</h1>
             <h2 className="text-2xl font-semibold mb-4">{receptionLocation}</h2>
             <p className="mb-4">{receptionAddress}</p>
 

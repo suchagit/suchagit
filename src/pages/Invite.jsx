@@ -143,7 +143,7 @@ const handleRsvp = async (status) => {
                             <span className="md:ml-2">{brideName}</span>
                         </h1>
                         <h2 className="text-base md:text-lg font-serif text-white italic tracking-wider mt-2 max-w-[16rem] drop-shadow-sm">
-                            invite you to join them as they celebrate their wedding
+                            invite you to join them as they celebrate their marriage
                         </h2>
                     </div>
                 </div>

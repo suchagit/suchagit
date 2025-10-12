@@ -329,13 +329,13 @@ export default function Registry() {
                 }`}
               >
                 <div className={`${disableButton ? "line-through" : ""}`}>
-                  <h3 className="font-semibold text-lg mb-2">{item.item}</h3>
+                  <div className="flex justify-between items-center mb-2">
+                    <h3 className="font-semibold text-lg">{item.item}</h3>
+                    {item.reservationCount > 0 && (
+                      <p className="text-sm text-right">{item.reservationCount} taken</p>
+                    )}
+                  </div>
                   <p className="mb-2">{item.description}</p>
-                  { (
-                    <p className="text-sm mb-2">
-                      {item.reservationCount}/{item.limit} reserved
-                    </p>
-                  )}
                 </div>
 
 

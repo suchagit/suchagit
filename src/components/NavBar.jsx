@@ -168,11 +168,11 @@ export default function NavBar() {
   if (unauthorized || !invite) return null;
 
   const links = [
-    { label: "Home", to: "/" },
     { label: "Invitation", to: "/invite" },
     { label: "Gifts", to: "/registry" },
     { label: "Gallery", to: "/gallery" },
     { label: "Venue", to: "/venue" },
+    { label: "Our Story", to: "/about" },
   ];
 
   const linkVariants = {
@@ -192,7 +192,11 @@ export default function NavBar() {
   return (
     <nav className="bg-peach text-brown shadow-md sticky top-0 z-50">
       <div className="container mx-auto flex justify-between items-center py-4 px-6 relative">
-
+<Link
+  to="/"
+  className="absolute left-2 top-1/2 -translate-y-1/2 opacity-0 w-6 h-6"
+  aria-label="Envelope link"
+/>
         {/* Logo (rotates when menu opens) */}
         <div className="flex-1 flex justify-center md:justify-start relative">
   {/* Container for click and scaling */}

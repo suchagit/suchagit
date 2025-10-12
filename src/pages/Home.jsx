@@ -198,8 +198,8 @@ import heroImg from "../assets/SoftTulipsCropped4.png";
 import NavButton from "../components/NavButton";
 import { useInvite } from "../context/InviteContext";
 import { supabase } from "../supabaseClient";
-import envelopeFront from "../assets/EnvelopeFront.png";
-import envelopeBack from "../assets/EnvelopeBack.png";
+import envelopeFront from "../assets/EnvelopePaperFront.png";
+import envelopeBack from "../assets/EnvelopePaperBack.png";
 import "../Home.css";
 import logoImg from "../assets/LogoLeaf.png"; // adjust path
 
@@ -220,6 +220,7 @@ export default function Home() {
   const [hovered, setHovered] = useState(false);
 
   const safari = isSafari();
+  const [safariFlipped, setSafariFlipped] = useState(false);
 
 
   useEffect(() => {
@@ -284,13 +285,14 @@ return (
             width: "80%",
             maxWidth: "500px",
             aspectRatio: "1188 / 978",
-            perspective: safari ? "none" : "1000px", // no perspective on Safari
+            perspective: safari ? "none" : "1000px",
             cursor: "pointer",
             position: "relative",
           }}
           onClick={() => {
             if (safari) {
-              navigate("/invite"); // Just navigate on Safari
+              // Toggle between front and back for Safari
+              setSafariFlipped(!safariFlipped);
             } else {
               setFlipped(!flipped);
             }
@@ -298,77 +300,166 @@ return (
           onMouseEnter={() => !safari && setHovered(true)}
           onMouseLeave={() => !safari && setHovered(false)}
         >
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              transformStyle: safari ? "flat" : "preserve-3d",
-              transition: "transform 0.8s ease-in-out",
-              transform: safari ? "none" : flipped || hovered ? "rotateY(180deg)" : "none",
-              position: "relative",
-            }}
-          >
-            {/* Front */}
+          {/* SAFARI: simple front/back toggle (no 3D) */}
+          {safari ? (
+            safariFlipped ? (
+              // Back of envelope (Safari)
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundImage: `url(${envelopeBack})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  borderRadius: "1rem",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "relative",
+                }}
+              >
+                <NavButton
+                  to="/invite"
+                  onClick={(e) => {
+                    e.stopPropagation(); // prevent toggling back when pressing Open
+                    navigate("/invite");
+                  }}
+                  style={{ zIndex: 2 }}
+                >
+                  Open
+                </NavButton>
+              </div>
+            ) : (
+              // Front of envelope (Safari) — includes logo + B&R
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundImage: `url(${envelopeFront})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  borderRadius: "1rem",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "relative",
+                }}
+              >
+                <h1
+                  style={{
+                    color: "#8b3f05",
+                    fontFamily: "Playfair Display, serif",
+                    fontSize: "3rem",
+                    fontWeight: 600,
+                    textAlign: "center",
+                    zIndex: 2,
+                    pointerEvents: "none",
+                    margin: 0,
+                  }}
+                >
+                  {invite.name}
+                </h1>
+
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "12%",
+                    right: "4%",
+                    width: "25%",
+                    height: "auto",
+                    zIndex: 3,
+                  }}
+                  className="relative inline-flex items-center justify-center pt-4"
+                >
+                  <img
+                    src={logoImg}
+                    alt="Logo"
+                    className="h-12 w-auto object-contain drop-shadow-xl select-none block"
+                  />
+
+                  <span
+                    className="absolute flex items-center justify-center
+                               text-darkbrown text-lg sm:text-xl md:text-2xl
+                               font-wedding font-bold tracking-wide
+                               pointer-events-none select-none"
+                  >
+                    B&R
+                  </span>
+                </div>
+              </div>
+            )
+          ) : (
+            /* Non-Safari: preserve 3D flip with front and back faces (front includes logo + B&R) */
             <div
               style={{
                 width: "100%",
                 height: "100%",
-                position: "absolute",
-                backfaceVisibility: "hidden",
-                backgroundImage: `url(${envelopeFront})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                borderRadius: "1rem",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                transformStyle: "preserve-3d",
+                transition: "transform 0.8s ease-in-out",
+                transform: flipped || hovered ? "rotateY(180deg)" : "none",
+                position: "relative",
               }}
             >
-              <h1
-                style={{
-                  color: "#8b3f05",
-                  fontFamily: "Playfair Display, serif",
-                  fontSize: "3rem",
-                  fontWeight: 600,
-                  textAlign: "center",
-                  zIndex: 2,
-                  pointerEvents: "none",
-                  margin: 0,
-                }}
-              >
-                {invite.name}
-              </h1>
-
+              {/* Front */}
               <div
                 style={{
+                  width: "100%",
+                  height: "100%",
                   position: "absolute",
-                  top: "12%",
-                  right: "4%",
-                  width: "25%",
-                  height: "auto",
-                  zIndex: 3,
+                  backfaceVisibility: "hidden",
+                  backgroundImage: `url(${envelopeFront})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  borderRadius: "1rem",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
-                className="relative inline-flex items-center justify-center pt-4"
               >
-                <img
-                  src={logoImg}
-                  alt="Logo"
-                  className="h-12 w-auto object-contain drop-shadow-xl select-none block"
-                />
-
-                <span
-                  className="absolute flex items-center justify-center
-                             text-darkbrown text-lg sm:text-xl md:text-2xl
-                             font-wedding font-bold tracking-wide
-                             pointer-events-none select-none"
+                <h1
+                  style={{
+                    color: "#8b3f05",
+                    fontFamily: "Playfair Display, serif",
+                    fontSize: "3rem",
+                    fontWeight: 600,
+                    textAlign: "center",
+                    zIndex: 2,
+                    pointerEvents: "none",
+                    margin: 0,
+                  }}
                 >
-                  B&R
-                </span>
-              </div>
-            </div>
+                  {invite.name}
+                </h1>
 
-            {/* Back */}
-            {!safari && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "12%",
+                    right: "4%",
+                    width: "25%",
+                    height: "auto",
+                    zIndex: 3,
+                  }}
+                  className="relative inline-flex items-center justify-center pt-4"
+                >
+                  <img
+                    src={logoImg}
+                    alt="Logo"
+                    className="h-12 w-auto object-contain drop-shadow-xl select-none block"
+                  />
+
+                  <span
+                    className="absolute flex items-center justify-center
+                               text-darkbrown text-lg sm:text-xl md:text-2xl
+                               font-wedding font-bold tracking-wide
+                               pointer-events-none select-none"
+                  >
+                    B&R
+                  </span>
+                </div>
+              </div>
+
+              {/* Back */}
               <div
                 style={{
                   width: "100%",
@@ -385,12 +476,19 @@ return (
                   alignItems: "center",
                 }}
               >
-                <NavButton to="/invite" style={{ zIndex: 2 }}>
+                <NavButton
+                  to="/invite"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate("/invite");
+                  }}
+                  style={{ zIndex: 2 }}
+                >
                   Open
                 </NavButton>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
