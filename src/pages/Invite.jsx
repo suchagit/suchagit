@@ -161,7 +161,7 @@ const handleRsvp = async (status) => {
                         </p>
                         {invite.reception === true && (
                         <p className="text-lg mb-2 italic tracking-wide">
-                            Join us for a reception at {receptionLocation} at {receptionTime}
+                            Join us for a grazing reception at {receptionLocation} at {receptionTime}
                         </p>
                         )}
                     </div>

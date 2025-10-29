@@ -98,7 +98,8 @@ export default function Venue() {
 
             <h2 className="text-xl font-semibold mb-2">Additional Notes</h2>
             <ul className="list-disc list-inside">
-              <li>The reception will be held in the Duke and Duchess Dining Room</li>
+              <li>The reception will be held in the Duke and Duchess Dining Room and the Balcony</li>
+              <li>It will be a relaxed reception with a grazing table, platters and drinks - no formal seating</li>
             </ul>
           </>
         )}
