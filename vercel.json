@@ -1,4 +1,7 @@
 {
+  "framework": "vite",
+  "buildCommand": "vite build",
+  "devCommand": "vite",
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
   ]

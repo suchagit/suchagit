@@ -172,7 +172,7 @@ export default function NavBar() {
     { label: "Gifts", to: "/registry" },
     { label: "Gallery", to: "/gallery" },
     { label: "Venue", to: "/venue" },
-    { label: "Our Story", to: "/about" },
+    //{ label: "Our Story", to: "/about" },
   ];
 
   const linkVariants = {
@@ -209,7 +209,7 @@ export default function NavBar() {
     <motion.img
       src={logo}
       alt="Logo"
-      animate={{ rotate: isOpen ? 120 : 0 }} // ✅ rotate 90° when open
+      animate={{ rotate: isOpen ? 190 : 0 }}//120 : 0 }} // ✅ rotate 90° when open
       transition={{ type: "spring", stiffness: 100, damping: 20, duration: 0.8 }} // ✅ slower rotation
       className="h-12 w-auto object-contain ml-6 md:ml-4 -my-2 drop-shadow-xl select-none"
     />
