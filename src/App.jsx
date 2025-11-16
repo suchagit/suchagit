@@ -6,6 +6,7 @@ import Registry from "./pages/Registry";
 import Gallery from "./pages/Gallery";
 import Venue from "./pages/Venue";
 import About from "./pages/About";
+import Responses from "./pages/Responses";
 import { InviteProvider } from "./context/InviteContext";
 
 const groomName = import.meta.env.VITE_NAME_GROOM;
@@ -24,6 +25,7 @@ function App() {
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/venue" element={<Venue />} />
             <Route path="/about" element={<About />} />
+            <Route path="/rsvplist" element={<Responses />} />
           </Routes>
         </div>
         {/*<footer className="text-center py-4 text-gray-500 text-sm">*/}

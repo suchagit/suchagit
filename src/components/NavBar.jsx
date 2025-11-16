@@ -236,6 +236,16 @@ export default function NavBar() {
               {link.label}
             </Link>
           ))}
+          {invite.name === "Admin" ?
+          <Link
+              key={"/rsvplist"}
+              className="hover:text-copper transition-colors"
+              to={"/rsvplist"}
+            >
+              {"RSVP List"}
+            </Link>
+          :
+          <></>}
         </div>
 
         {/* Mobile Menu Toggle */}
