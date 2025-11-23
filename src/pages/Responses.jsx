@@ -18,11 +18,6 @@ export default function Responses() {
 
   console.log("INVITATION: ", invite);
 
-
-
-
-
-
   useEffect(() => {
     const fetchData = async () => {
       const { data, error } = await supabase

@@ -228,13 +228,18 @@ export default function NavBar() {
         {/* Desktop Links */}
         <div className="hidden sm:flex space-x-6">
           {links.map((link) => (
-            <Link
-              key={link.to}
-              className="hover:text-copper transition-colors"
-              to={link.to}
-            >
-              {link.label}
-            </Link>
+            <>
+              {invite.name !== "Lynnette" || link.label !== "Gallery" ?
+                <Link
+                  key={link.to}
+                  className="hover:text-copper transition-colors"
+                  to={link.to}
+                >
+                  {link.label}
+                </Link>
+              :
+              <></>}
+            </>
           ))}
           {invite.name === "Admin" ?
           <Link

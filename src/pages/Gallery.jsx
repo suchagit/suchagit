@@ -312,6 +312,15 @@ const handleToggleLike = async (photoName) => {
       </div>
     );
 
+  if (invite.name === "Lynnette")
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="max-w-xl w-full bg-peach rounded-lg p-6 shadow-lg text-center">
+          <h2 className="text-2xl font-heading mb-4">Unauthorised</h2>
+        </div>
+      </div>
+  );
+
   if (loading) return <p className="p-8 text-center">Loading gallery…</p>;
 
   return (
