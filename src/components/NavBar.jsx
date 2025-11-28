@@ -173,6 +173,7 @@ export default function NavBar() {
     { label: "Gallery", to: "/gallery" },
     { label: "Venue", to: "/venue" },
     //{ label: "Our Story", to: "/about" },
+    { label: "Songs", to: "/songs" },
   ];
 
   const linkVariants = {
